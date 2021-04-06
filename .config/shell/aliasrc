@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Alias for startx
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+# Aliasses for common system commands requiring sudo
+for cmd in mount unmount pacman su ; do
+	alias $cmd="sudo $cmd"
+done
+
+# Common aliases for verbosity
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	mkdir="mkdir -pv"
+
+# Elable color options
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto"
+
+# Other random crap
+alias weather="curl wrrt.in"
+
+alias dotfiles='git --git-dir=$HOME/.dots/ --work-tree=$HOME'

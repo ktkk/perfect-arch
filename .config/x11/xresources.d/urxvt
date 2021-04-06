@@ -1,0 +1,46 @@
+! Colors
+! ------
+URxvt*depth: 32
+
+! Fonts
+! -----
+URxvt*font: xft:Fira Mono:size=11
+URxvt.boldFont: xft:Fira Mono:bold:size=11
+URxvt.italicFont: xft:Fira Mono:italic:size=11
+URxvt.boldItalicFont: xft:Fira Mono:boldItalic:size=11
+URxvt*allow_bold: true
+
+! Scrolling
+! ---------
+URxvt.saveLines: 500
+
+URxvt.scrollStyle: plain
+
+URxvt.scrollBar: false
+URxvt.scrollBar_floating: false
+URxvt.scrollBar_right: true
+
+! URL Handling
+! ------------
+URxvt.url-launcher: xdg-open
+URxvt.matcher.button: 1
+
+! Copy Pasting
+! ------------
+
+! 	Disabling ISO 14755 unicode input so we can use Ctrl-Shift bindings
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+!	Disabling Ctrl-Alt-c & Ctrl-Alt-v as default Copy & Paste keybinds
+URxvt.keysym.C-M-c: builtin-string:
+URxvt.keysym.C-M-v: builtin-string:
+
+!	Bind Ctrl-Shift-c & Ctrl-Shift-v to Copy & Paste
+URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
+URxvt.keysym.C-S-0x56: eval:paste_clipboard
+
+! Home & End
+! ----------
+URxvt.keysym.Home: \033[H
+URxvt.keysym.End: \033[F

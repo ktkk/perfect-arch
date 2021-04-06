@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# autostart regardless of WM/DE
+
+# Source Xresources
+xrdb -merge -I${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
+
+# Start if not already running function
+start() {
+	cmd=$1; shift
+	args=$*
+	pgrep -u "$USER" -ic "$cmd" > /dev/null || $cmd $args &
+}
+
+# Start with terminal if not already running function
+termstart() {
+	cmd=$1; shift
+	args=$*
+	pgrep -u "$USER" -ic "$cmd" > /dev/null || $TERMINAL -e $cmd $args &
+}
+
+# Place autostart applications here
+start setbg
+start nm-applet

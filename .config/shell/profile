@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Profile file runs on login. Enviroment Variables set here
+
+# Add `~/.local/bin to $PATH
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+
+# Default programs
+export EDITOR="vim"
+export TERMINAL="urxvt"
+#export BROWSER="firefox"
+
+# XDG
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# Xorg
+export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
+
+# Less
+export LESSHISTFILE="-"
+
+# Shell
+export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+
+# Rust
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+
+# Vim
+export MYVIMRC="${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc"
+export VIMINIT='source $MYVIMRC'
+
+# Start the graphical server if logging in on tty1
+[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC" && echo "Starting X"

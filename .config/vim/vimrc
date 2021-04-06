@@ -1,0 +1,78 @@
+syntax on
+set mouse=a
+
+set title titlestring=%f
+
+set hidden
+set splitbelow
+
+set smartindent
+set autoindent
+
+set number relativenumber
+set noshowmode
+set ruler
+set nowrap
+set incsearch
+set belloff=all
+
+set signcolumn=number
+
+" XDG kinda poggers
+set rtp+=$XDG_CONFIG_HOME/vim,$HOME/.config/vim
+set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo,$HOME/.config/vim/viminfo
+
+" Plugin Manager
+" Autoinstall Plug if it's not present
+if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/autoload/plug.vim"'))
+	echo "Downloading vim plug"
+	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/vim/autoload/
+	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/vim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/plugged"'))
+	" Hex color preview
+	Plug 'ap/vim-css-color'
+
+	" Statusline
+	Plug 'itchyny/lightline.vim'
+
+	" Colorshemes
+	Plug 'flazz/vim-colorschemes'
+
+	" Fern filemanager
+	Plug 'lambdalisue/fern.vim'
+	Plug 'lambdalisue/nerdfont.vim'
+	Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+	Plug 'lambdalisue/glyph-palette.vim'
+call plug#end()
+
+" Set Colorsheme
+colorscheme iceberg
+
+" Cursor
+let &t_SI="\<ESC>[5 q" " Blinking |-beam in insert mode
+let &t_SR="\<ESC>[3 q" " Blinking _ in replace mode
+let &t_EI="\<ESC>[ q"  " Default cursor in other cases
+
+" Keybinds
+" Visual Studio like line moving, except alt is stupid
+nnoremap <S-j> :m .+1<CR>==
+nnoremap <S-k> :m .-2<CR>==
+inoremap <S-j> <Esc>:m .+1<CR>==gi
+inoremap <S-k> <Esc>:m .-2<CR>==gi
+vnoremap <S-j> :m '>+1<CR>gv=gv
+vnoremap <S-k> :m '<-2<CR>gv=gv
+
+" Invoke make with Ctrl-Shift-b
+nnoremap <C-S-b> :make<CR>
+inoremap <C-S-b> <Esc>:make<CR>gi
+
+" Fern config
+source $HOME/.config/vim/fern_config.vim
+
+augroup fern-startup
+	autocmd! *
+	autocmd VimEnter * ++nested Fern . -drawer -reveal=% | wincmd p
+augroup END
