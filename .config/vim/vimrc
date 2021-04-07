@@ -69,6 +69,10 @@ vnoremap <S-k> :m '<-2<CR>gv=gv
 nnoremap <C-S-b> :make<CR>
 inoremap <C-S-b> <Esc>:make<CR>gi
 
+" X clipboard (only works with gvim installed)
+vnoremap <C-c> "*y :let @+=@*<CR>
+map <C-v> "+P
+
 " Fern config
 source $HOME/.config/vim/fern_config.vim
 
