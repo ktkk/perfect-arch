@@ -21,6 +21,18 @@ alias \
 	grep="grep --color=auto" \
 	diff="diff --color=auto"
 
+# File aliases (zsh only)
+alias -g \
+	aliasrc=${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc \
+	profile=${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile \
+	zshrc=${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc \
+	vimrc=${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc \
+	xprofile=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile \
+	xinitrc=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc \
+	colors=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d/colors \
+	urxvt=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d/urxvt \
+	awesomerc=${XDG_CONFIG_HOME:-$HOME/.config}/awesome/rc.lua \
+
 # Other random crap
 alias weather="curl wrrt.in"
 
