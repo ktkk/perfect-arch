@@ -5,7 +5,7 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
--- Standard awesome library
+-- Standard awesome libraries
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
@@ -18,35 +18,11 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- Custom imports
-
 -- Autostart
---local autostart = require("autostart")
 -- Handled by .config/x11/xprofile
 
 -- ERROR HANDLING
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
-
--- Handle runtime errors after startup
-do
-    local in_error = false
-    awesome.connect_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
-
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = tostring(err) })
-        in_error = false
-    end)
-end
+require("error-handling")
 
 -- VARIABLES
 
@@ -55,15 +31,13 @@ theme = "dark"
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme .. "/theme.lua")
 
 -- Applications
--- apps = {
-	terminal = "urxvt"
-	editor = os.getenv("EDITOR") or "vim"
-	editor_cmd = terminal .. " -e " .. editor
-
-	browser = "firefox"
-	filemanager = "thunar"
-	discord = "discord"
--- }
+apps = {
+	terminal = "urxvt",
+	editor = os.getenv("EDITOR") or "vim",
+	browser = "firefox",
+	filemanager = "thunar",
+	discord = "discord",
+}
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -83,16 +57,16 @@ require("window")
 -- Menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "edit config", apps.terminal .. " -e " .. apps.editor .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Terminal", terminal },
-				    { "File Manager", filemanager },
-				    { "Browser", browser },
-				    { "Discord", discord }
+                                    { "Terminal", apps.terminal },
+				    { "File Manager", apps.filemanager },
+				    { "Browser", apps.browser },
+				    { "Discord", apps.discord }
                                   }
                         })
 
@@ -273,7 +247,7 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(apps.terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
