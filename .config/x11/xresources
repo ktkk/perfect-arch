@@ -1,2 +1,50 @@
+! Colors
+! ------
+#define bg		#222222
+#define fg		#dfdfdf
+
+#define cursor		#dfdfdf
+
+! Black
+#define black0		#2c2c2c
+#define black1		#404040
+
+! Red
+#define red0		#c44b44
+#define red1		#bf615e
+
+! Green
+#define green0		#758c5a
+#define green1		#749b74
+
+! Yellow
+#define yellow0		#d3904d
+#define yellow1		#d6aa58
+
+! Blue
+#define blue0		#3a5fa9
+#define blue1		#6781b6
+
+! Magenta
+#define magenta0	#935b9c
+#define magenta1	#cfa1d2
+
+! Cyan
+#define cyan0		#296b72
+#define cyan1		#6cbac3
+
+! White
+#define white0		#dddddd
+#define white1		#ffffff
+
+! Font
+! ----
+#define myfont FiraMono
+#define myfontsize 11
+
+! Padding
+! -------
+#define mypadding 10
+
 #include "colors"
 #include "urxvt"

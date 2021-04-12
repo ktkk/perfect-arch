@@ -22,6 +22,9 @@ set signcolumn=number
 set rtp+=$XDG_CONFIG_HOME/vim,$HOME/.config/vim
 set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo,$HOME/.config/vim/viminfo
 
+" Disable netrw bookmarks
+let g:netrw_dirhistmax = 0
+
 " Plugin Manager
 " Autoinstall Plug if it's not present
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/autoload/plug.vim"'))

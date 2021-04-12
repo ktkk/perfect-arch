@@ -1,36 +1,28 @@
-*background: 	#222222
-*foreground: 	#dfdfdf
+*background: 	bg
+*foreground: 	fg
 
-*cursorColor: 	#dfdfdf
+*cursorColor: 	cursor
 
-! Black
-*color0: 	#2c2c2c
-*color8: 	#404040
+*color0: 	black0
+*color8: 	black1
 
-! Red
-*color1: 	#c44b44
-*color9: 	#bf615e
+*color1: 	red0
+*color9: 	red1
 
-! Green
-*color2: 	#758c5a
-*color10: 	#749b74
+*color2: 	green0
+*color10: 	green1
 
-! Yellow
-*color3: 	#d3904d
-*color11: 	#d6aa58
+*color3: 	yellow0
+*color11: 	yellow1
 
-! Blue
-*color4: 	#3a5fa9
-*color12: 	#6781b6
+*color4: 	blue0
+*color12: 	blue1
 
-! Magenta
-*color5: 	#935b9c
-*color13: 	#cfa1d2
+*color5: 	magenta0
+*color13: 	magenta1
 
-! Cyan
-*color6: 	#296b72
-*color14: 	#6cbac3
+*color6: 	cyan0
+*color14: 	cyan1
 
-! White
-*color7: 	#dddddd
-*color15: 	#ffffff
+*color7: 	white0
+*color15: 	white1
