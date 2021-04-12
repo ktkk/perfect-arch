@@ -11,7 +11,7 @@ URxvt.boldItalicFont: xft:myfont:boldItalic:size=myfontsize
 URxvt*allow_bold: true
 
 ! Padding
-! URxvt*internalBorder mypadding
+!URxvt*internalBorder: mypadding
 
 ! Scrolling
 ! ---------

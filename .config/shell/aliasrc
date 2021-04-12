@@ -29,6 +29,7 @@ alias -g \
 	vimrc=${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc \
 	xprofile=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile \
 	xinitrc=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc \
+	xresources=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources \
 	colors=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d/colors \
 	urxvt=${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d/urxvt \
 	awesomerc=${XDG_CONFIG_HOME:-$HOME/.config}/awesome/rc.lua \

@@ -23,3 +23,6 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
+
+# Alias autocompletion
+setopt completealiases
