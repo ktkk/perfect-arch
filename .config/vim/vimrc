@@ -83,11 +83,11 @@ vnoremap <C-c> "*y :let @+=@*<CR>
 map <C-p> "+P
 
 " Fern config
-source ${XDG_CONFIG_HOME:-$HOME/.config}/vim/fern_config.vim
+source $XDG_CONFIG_HOME/vim/fern_config.vim
 
 augroup fern-startup
 	autocmd! *
 	autocmd VimEnter * ++nested Fern . -drawer -reveal=% | wincmd p
 augroup END
 
-source ${XDG_CONFIG_HOME:-$HOME/.config}vim/coc_config.vim
+source $XDG_CONFIG_HOME/vim/coc_config.vim
