@@ -37,6 +37,12 @@ endif
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/plugged"'))
 	" Hex color preview
 	Plug 'ap/vim-css-color'
+	
+	" Enhanced cpp highlighting
+	Plug 'octol/vim-cpp-enhanced-highlight'
+
+	" Code completion
+	Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 	" Statusline
 	Plug 'itchyny/lightline.vim'
@@ -77,9 +83,11 @@ vnoremap <C-c> "*y :let @+=@*<CR>
 map <C-p> "+P
 
 " Fern config
-source $HOME/.config/vim/fern_config.vim
+source ${XDG_CONFIG_HOME:-$HOME/.config}/vim/fern_config.vim
 
 augroup fern-startup
 	autocmd! *
 	autocmd VimEnter * ++nested Fern . -drawer -reveal=% | wincmd p
 augroup END
+
+source ${XDG_CONFIG_HOME:-$HOME/.config}vim/coc_config.vim
