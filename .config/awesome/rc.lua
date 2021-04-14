@@ -31,17 +31,14 @@ require("error-handling")
 -- Theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
 
--- Layouts
-require("window")
-
 -- Keys
 local keys = {
 	globalkeys = require("keys.globalkeys")
 	bindtotags = require("keys.bindtotags")
 }
 
-RC.globalkeys = keys.globalkeys()
-RC.globalkeys = keys.bindtotags(RC.globalkeys)
+-- Layouts
+require("window")
 
 -- Menu
 myawesomemenu = {
@@ -60,6 +57,9 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                         })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mymainmenu })
+
+RC.globalkeys = keys.globalkeys()
+RC.globalkeys = keys.bindtotags(RC.globalkeys)
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
@@ -220,11 +220,11 @@ clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
     end),
-    awful.button({ modkey }, 1, function (c)
+    awful.button({ RC.vars.keys.modkey }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.move(c)
     end),
-    awful.button({ modkey }, 3, function (c)
+    awful.button({ RC.vars.keys.modkey }, 3, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.resize(c)
     end)
