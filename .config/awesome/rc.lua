@@ -18,46 +18,44 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- global namespace
+RC = {}
+RC.vars = require("vars")
+
 -- Autostart
 -- Handled by .config/x11/xprofile
 
--- ERROR HANDLING
+-- Error Handling
 require("error-handling")
 
--- VARIABLES
-
 -- Theme
-theme = "dark"
-beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme .. "/theme.lua")
-
--- Applications
-apps = {
-	terminal = "urxvt",
-	editor = os.getenv("EDITOR") or "vim",
-	browser = "firefox",
-	filemanager = "thunar",
-	discord = "discord",
-}
-
--- Keys
-require("keys")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
 
 -- Layouts
 require("window")
 
+-- Keys
+local keys = {
+	globalkeys = require("keys.globalkeys")
+	bindtotags = require("keys.bindtotags")
+}
+
+RC.globalkeys = keys.globalkeys()
+RC.globalkeys = keys.bindtotags(RC.globalkeys)
+
 -- Menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "edit config", apps.terminal .. " -e " .. apps.editor .. " " .. awesome.conffile },
+   { "edit config", vars.apps.terminal .. " -e " .. vars.apps.editor .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Terminal", apps.terminal },
-				    { "File Manager", apps.filemanager },
-				    { "Browser", apps.browser },
-				    { "Discord", apps.discord }
+                                    { "Terminal", RC.vars.apps.terminal },
+				    { "File Manager", RC.vars.apps.filemanager },
+				    { "Browser", RC.vars.apps.browser },
+				    { "Discord", RC.vars.apps.discord }
                                   }
                         })
 
@@ -175,98 +173,48 @@ root.buttons(gears.table.join(
 
 
 clientkeys = gears.table.join(
-    awful.key({ modkey,           }, "f",
+    awful.key({ RC.vars.keys.modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ RC.vars.keys.modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ RC.vars.keys.modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ RC.vars.keys.modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
-    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
+    awful.key({ RC.vars.keys.modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+    awful.key({ RC.vars.keys.modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
-    awful.key({ modkey,           }, "n",
+    awful.key({ RC.vars.keys.modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end ,
         {description = "minimize", group = "client"}),
-    awful.key({ modkey,           }, "m",
+    awful.key({ RC.vars.keys.modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
             c:raise()
         end ,
         {description = "(un)maximize", group = "client"}),
-    awful.key({ modkey, "Control" }, "m",
+    awful.key({ RC.vars.keys.modkey, "Control" }, "m",
         function (c)
             c.maximized_vertical = not c.maximized_vertical
             c:raise()
         end ,
         {description = "(un)maximize vertically", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "m",
+    awful.key({ RC.vars.keys.modkey, "Shift"   }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
         end ,
         {description = "(un)maximize horizontally", group = "client"})
 )
-
--- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it work on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
-    globalkeys = gears.table.join(globalkeys,
-        -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
-                  function ()
-                        local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
-                        if tag then
-                           tag:view_only()
-                        end
-                  end,
-                  {description = "view tag #"..i, group = "tag"}),
-        -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  function ()
-                      local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
-                  end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
-        -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
-                  function ()
-                      if client.focus then
-                          local tag = client.focus.screen.tags[i]
-                          if tag then
-                              client.focus:move_to_tag(tag)
-                          end
-                     end
-                  end,
-                  {description = "move focused client to tag #"..i, group = "tag"}),
-        -- Toggle tag on focused client.
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-                  function ()
-                      if client.focus then
-                          local tag = client.focus.screen.tags[i]
-                          if tag then
-                              client.focus:toggle_tag(tag)
-                          end
-                      end
-                  end,
-                  {description = "toggle focused client on tag #" .. i, group = "tag"})
-    )
-end
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
@@ -283,7 +231,7 @@ clientbuttons = gears.table.join(
 )
 
 -- Set keys
-root.keys(globalkeys)
+root.keys(RC.globalkeys)
 -- }}}
 
 -- {{{ Rules
