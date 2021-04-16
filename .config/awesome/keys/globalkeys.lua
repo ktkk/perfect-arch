@@ -6,12 +6,13 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 -- Modifiers
-local keys = rc.vars.keys
+local keys = RC.vars.keys
+local apps = RC.vars.apps
 
-local M = {}
+local module = {}
 
 -- Global keybinds
-function M.get()
+function module.get()
 	local globalkeys = gears.table.join(
 		-- Formatting
 		-- awful.key({ MODIFIER KEYS }, KEY, FUNCTION, {description = DESCRIPTION, group = GROUP}),
@@ -77,7 +78,7 @@ function M.get()
 		-- Super - W:		Show main menu
 		awful.key({ keys.modkey, }, "w",
 				function ()
-					mymainmenu:show()
+					RC.mainmenu:show()
 				end,
 			{description = "show main menu", group = "awesome"}),
 
@@ -197,4 +198,4 @@ function M.get()
 	return globalkeys
 end
 
-return setmetatable({}, { __call = function(_, ...) return M.get(...) end })
+return setmetatable({}, { __call = function(_, ...) return module.get(...) end })

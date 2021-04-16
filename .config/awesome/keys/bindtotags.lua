@@ -3,11 +3,11 @@
 local gears = require("gears")
 local awful = require("awful")
 
-local keys = rc.vars.keys
+local keys = RC.vars.keys
 
-local M = {}
+local module = {}
 
-function M.get(globalkeys)
+function module.get(globalkeys)
 	-- Bind all key numbers to tags.
 	-- Be careful: we use keycodes to make it work on any keyboard layout.
 	-- This should map on the top row of your keyboard, usually 1 to 9.
@@ -61,4 +61,4 @@ function M.get(globalkeys)
 	return globalkeys
 end
 
-return setmetatable({}, { __call = function(_, ..) return M.get(...) end })	
+return setmetatable({}, { __call = function(_, ...) return module.get(...) end })	

@@ -31,9 +31,14 @@ require("error-handling")
 -- Theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
 
+-- Main
+local main = {
+	menu = require("main.menu")
+}
+
 -- Keys
 local keys = {
-	globalkeys = require("keys.globalkeys")
+	globalkeys = require("keys.globalkeys"),
 	bindtotags = require("keys.bindtotags")
 }
 
@@ -41,22 +46,8 @@ local keys = {
 require("window")
 
 -- Menu
-myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "edit config", vars.apps.terminal .. " -e " .. vars.apps.editor .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
-}
-
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Terminal", RC.vars.apps.terminal },
-				    { "File Manager", RC.vars.apps.filemanager },
-				    { "Browser", RC.vars.apps.browser },
-				    { "Discord", RC.vars.apps.discord }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mymainmenu })
+RC.mainmenu = awful.menu({ items = main.menu() })
+RC.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu })
 
 RC.globalkeys = keys.globalkeys()
 RC.globalkeys = keys.bindtotags(RC.globalkeys)
@@ -71,13 +62,13 @@ mytextclock = wibox.widget.textclock()
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
+                    awful.button({ RC.vars.keys.modkey }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
                                               end
                                           end),
                     awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
+                    awful.button({ RC.vars.keys.modkey }, 3, function(t)
                                               if client.focus then
                                                   client.focus:toggle_tag(t)
                                               end
@@ -147,7 +138,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            RC.launcher,
             s.mytaglist,
             s.mypromptbox,
         },
@@ -165,7 +156,7 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () RC.mainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
