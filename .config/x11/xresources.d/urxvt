@@ -1,3 +1,7 @@
+! Extensions
+! ----------
+URxvt.perl-ext-common: default,selection-to-clipboard,resize-font
+
 ! Colors
 ! ------
 URxvt*depth: 32
