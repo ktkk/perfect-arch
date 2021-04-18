@@ -33,7 +33,8 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.t
 
 -- Main
 local main = {
-	menu = require("main.menu")
+	menu 	= require("main.menu"),
+	layouts = require("main.layouts")
 }
 
 -- Keys
@@ -43,7 +44,8 @@ local keys = {
 }
 
 -- Layouts
-require("window")
+RC.layouts = main.layouts()
+awful.layout.layouts = RC.layouts
 
 -- Menu
 RC.mainmenu = awful.menu({ items = main.menu() })
