@@ -82,6 +82,9 @@ inoremap <C-S-b> <Esc>:make<CR>gi
 vnoremap <C-c> "*y :let @+=@*<CR>
 map <C-p> "+P
 
+" Open Terminal with Ctrl-t
+nnoremap <C-t> :term<CR>
+
 " Fern config
 source $XDG_CONFIG_HOME/vim/fern_config.vim
 
