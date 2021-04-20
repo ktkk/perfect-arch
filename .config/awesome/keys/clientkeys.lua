@@ -54,8 +54,14 @@ function module.get()
 					c.ontop = not c.ontop
 				end,
 			{description = "Toggle keep on top", group = "client"}),
+		-- Super - Ctrl - P: 	Toggle client titlebar
+		awful.key({ keys.modkey, keys.ctrl }, "p",
+				function (c)
+					awful.titlebar.toggle(c)
+				end,
+			{description = "Toggle titlebar", group = "client"}),
 		-- Super - N: 		Minimize client
-		awful.key({ keys.modkey,           }, "n",
+		awful.key({ keys.modkey, }, "n",
 				function (c)
 					-- The client currently has the input focus, so it cannot be
 					-- minimized, since minimized clients can't have the focus.
@@ -63,7 +69,7 @@ function module.get()
 				end,
 			{description = "Minimize", group = "client"}),
 		-- Super - M: 		Maximize client
-		awful.key({ keys.modkey,           }, "m",
+		awful.key({ keys.modkey, }, "m",
 				function (c)
 					c.maximized = not c.maximized
 					c:raise()
