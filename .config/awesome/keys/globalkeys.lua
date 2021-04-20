@@ -11,7 +11,6 @@ local apps = RC.vars.apps
 
 local module = {}
 
--- Global keybinds
 function module.get()
 	local globalkeys = gears.table.join(
 		-- Formatting
@@ -21,19 +20,19 @@ function module.get()
 		-------------------------------------------------------------------------------------------
 		-- General
 		-- Super - S: 		Help menu
-		awful.key({ keys.modkey, }, "s", hotkeys_popup.show_help, {description = "show help", group = "awesome"}),
+		awful.key({ keys.modkey, }, "s", hotkeys_popup.show_help, {description = "Show help", group = "awesome"}),
 		-- Super - Ctrl - R:	Reload Awesome
-		awful.key({ keys.modkey, keys.ctrl }, "r", awesome.restart, {description = "reload awesome", group = "awesome"}),
+		awful.key({ keys.modkey, keys.ctrl }, "r", awesome.restart, {description = "Reload awesome", group = "awesome"}),
 		-- Super - Shift - Q:	Quit Awesome
-		awful.key({ keys.modkey, keys.shift }, "q", awesome.quit, {description = "quit awesome", group = "awesome"}),
+		awful.key({ keys.modkey, keys.shift }, "q", awesome.quit, {description = "Quit awesome", group = "awesome"}),
 
 		-- Tags
 		-- Super - Left:	Cycle tags left
-		awful.key({ keys.modkey, }, "Left", awful.tag.viewprev, {description = "view previous", group = "tag"}),
+		awful.key({ keys.modkey, }, "Left", awful.tag.viewprev, {description = "View previous", group = "tag"}),
 		-- Super - Right:	Cycle tags right
-		awful.key({ keys.modkey, }, "Right", awful.tag.viewnext, {description = "view next", group = "tag"}),
+		awful.key({ keys.modkey, }, "Right", awful.tag.viewnext, {description = "View next", group = "tag"}),
 		-- Super - Esc:		Go to previously visited tag
-		awful.key({ keys.modkey, }, keys.escape, awful.tag.history.restore, {description = "go back", group = "tag"}),
+		awful.key({ keys.modkey, }, keys.escape, awful.tag.history.restore, {description = "Go back", group = "tag"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Clients
@@ -42,13 +41,13 @@ function module.get()
 				function ()
 				    awful.client.focus.byidx( 1)
 				end,
-			{description = "focus next by index", group = "client"}),
+			{description = "Focus next by index", group = "client"}),
 		-- Super - K:		Cycle clients right
 		awful.key({ keys.modkey, }, "k",
 				function ()
 				    awful.client.focus.byidx(-1)
 				end,
-			{description = "focus previous by index", group = "client"}),
+			{description = "Focus previous by index", group = "client"}),
 		-- Super - Shift - Tab:	Cycle 2 most recent clients
 		awful.key({ keys.modkey, keys.shift }, keys.tab,
 				function ()
@@ -57,9 +56,9 @@ function module.get()
 					client.focus:raise()
 				    end
 				end,
-			{description = "go back", group = "client"}),
+			{description = "Go back", group = "client"}),
 		-- Super - U:		Jump to urgent client
-		awful.key({ keys.modkey, }, "u", awful.client.urgent.jumpto, {description = "jump to urgent client", group = "client"}),
+		awful.key({ keys.modkey, }, "u", awful.client.urgent.jumpto, {description = "Jump to urgent client", group = "client"}),
 		-- Super - Ctrl - N:	Restore minimized client
 		awful.key({ keys.modkey, keys.ctrl }, "n",
 				function ()
@@ -71,7 +70,7 @@ function module.get()
 						)
 					end
 				end,
-			{description = "restore minimized", group = "client"}),
+			{description = "Restore minimized", group = "client"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Menu
@@ -80,7 +79,7 @@ function module.get()
 				function ()
 					RC.mainmenu:show()
 				end,
-			{description = "show main menu", group = "awesome"}),
+			{description = "Show main menu", group = "awesome"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Layout manipulation
@@ -89,19 +88,19 @@ function module.get()
 				function ()
 					awful.client.swap.byidx(1)
 				end,
-			{description = "swap with next client by index", group = "client"}),
+			{description = "Swap with next client by index", group = "client"}),
 		-- Super - Shift - K:	Swap clients right
 		awful.key({ keys.modkey, keys.shift }, "k",
 				function ()
 					awful.client.swap.byidx(-1)
 				end,
-			{description = "swap with previous client by index", group = "client"}),
+			{description = "Swap with previous client by index", group = "client"}),
 		-- Super - Ctrl - J:	Focus screen left
 		awful.key({ keys.modkey, keys.ctrl }, "j",
 				function ()
 					awful.screen.focus_relative(1)
 				end,
-			{description = "focus the next screen", group = "screen"}),
+			{description = "Focus the next screen", group = "screen"}),
 		-- Super - Ctrl - K:	Focus screen right
 		awful.key({ keys.modkey, keys.ctrl }, "k",
 				function ()
@@ -113,49 +112,49 @@ function module.get()
 				function ()
 					awful.tag.incmwfact(0.05)
 				end,
-			{description = "increase master width factor", group = "layout"}),
+			{description = "Increase master width factor", group = "layout"}),
 		-- Super - H:		Decrease master client width
 		awful.key({ keys.modkey, }, "h",
 				function ()
 					awful.tag.incmwfact(-0.05)
 				end,
-			{description = "decrease master width factor", group = "layout"}),
+			{description = "Decrease master width factor", group = "layout"}),
 		-- Super - Shift - H:	Increase nr of master clients
 		awful.key({ keys.modkey, keys.shift }, "h",
 				function ()
 					awful.tag.incnmaster(1, nil, true)
 				end,
-			{description = "increase the number of master clients", group = "layout"}),
+			{description = "Increase the number of master clients", group = "layout"}),
 		-- Super - Shift - L:	Decrease nr of master clients
 		awful.key({ keys.modkey, keys.shift }, "l",
 				function ()
 					awful.tag.incnmaster(-1, nil, true)
 				end,
-			{description = "decrease the number of master clients", group = "layout"}),
+			{description = "Decrease the number of master clients", group = "layout"}),
 		-- Super - Ctrl - H:	Increase nr of columns
 		awful.key({ keys.modkey, keys.ctrl }, "h",
 				function ()
 					awful.tag.incncol(1, nil, true)
 				end,
-			{description = "increase the number of columns", group = "layout"}),
+			{description = "Increase the number of columns", group = "layout"}),
 		-- Super - Ctrl - L:	Decrease nr of columns
 		awful.key({ keys.modkey, keys.ctrl }, "l",
 				function ()
 					awful.tag.incncol(-1, nil, true)
 				end,
-			{description = "decrease the number of columns", group = "layout"}),
+			{description = "Decrease the number of columns", group = "layout"}),
 		-- Super - Space:	Switch to next layout
 		awful.key({ keys.modkey, }, keys.space,
 				function ()
 					awful.layout.inc( 1)
 				end,
-			{description = "select next", group = "layout"}),
+			{description = "Select next", group = "layout"}),
 		-- Super - Shift - Space:	Switch to previous layout
 		awful.key({ keys.modkey, keys.shift }, keys.space,
 				function ()
 					awful.layout.inc(-1)
 				end,
-			{description = "select previous", group = "layout"}),
+			{description = "Select previous", group = "layout"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Program launch keybind
@@ -164,7 +163,7 @@ function module.get()
 				function ()
 					awful.spawn(apps.terminal)
 				end,
-			  {description = "open a terminal", group = "launcher"}),
+			  {description = "Open a terminal", group = "launcher"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Run prompt
@@ -173,7 +172,7 @@ function module.get()
 				function ()
 					awful.screen.focused().mypromptbox:run()
 				end,
-			  {description = "run prompt", group = "launcher"}),
+			  {description = "Run prompt", group = "launcher"}),
 		-- Super - X:		Lua run prompt
 		awful.key({ keys.modkey }, "x",
 				function ()
@@ -184,7 +183,7 @@ function module.get()
 						  history_path = awful.util.get_cache_dir() .. "/history_eval"
 					  }
 				end,
-			  {description = "lua execute prompt", group = "awesome"}),
+			  {description = "Lua execute prompt", group = "awesome"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Menubar
@@ -192,7 +191,7 @@ function module.get()
 				function()
 					menubar.show()
 				end,
-			  {description = "show the menubar", group = "launcher"})
+			  {description = "Show the menubar", group = "launcher"})
 	)
 
 	return globalkeys

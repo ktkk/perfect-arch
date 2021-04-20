@@ -33,14 +33,16 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.t
 
 -- Main
 local main = {
-	menu 	= require("main.menu"),
-	layouts = require("main.layouts")
+	menu 		= require("main.menu"),
+	layouts 	= require("main.layouts")
 }
 
 -- Keys
 local keys = {
-	globalkeys = require("keys.globalkeys"),
-	bindtotags = require("keys.bindtotags")
+	globalkeys 	= require("keys.globalkeys"),
+	globalmouse 	= require("keys.globalmouse"),
+	clientkeys 	= require("keys.clientkeys"),
+	bindtotags 	= require("keys.bindtotags")
 }
 
 -- Layouts
@@ -51,8 +53,12 @@ awful.layout.layouts = RC.layouts
 RC.mainmenu = awful.menu({ items = main.menu() })
 RC.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu })
 
+-- Mouse and Key bindings
 RC.globalkeys = keys.globalkeys()
 RC.globalkeys = keys.bindtotags(RC.globalkeys)
+
+root.buttons(keys.globalmouse())
+root.keys(RC.globalkeys)
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
@@ -156,58 +162,8 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 -- }}}
 
--- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({ }, 3, function () RC.mainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
--- }}}
-
-
-clientkeys = gears.table.join(
-    awful.key({ RC.vars.keys.modkey,           }, "f",
-        function (c)
-            c.fullscreen = not c.fullscreen
-            c:raise()
-        end,
-        {description = "toggle fullscreen", group = "client"}),
-    awful.key({ RC.vars.keys.modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-              {description = "close", group = "client"}),
-    awful.key({ RC.vars.keys.modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
-              {description = "toggle floating", group = "client"}),
-    awful.key({ RC.vars.keys.modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
-              {description = "move to master", group = "client"}),
-    awful.key({ RC.vars.keys.modkey,           }, "o",      function (c) c:move_to_screen()               end,
-              {description = "move to screen", group = "client"}),
-    awful.key({ RC.vars.keys.modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
-              {description = "toggle keep on top", group = "client"}),
-    awful.key({ RC.vars.keys.modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end ,
-        {description = "minimize", group = "client"}),
-    awful.key({ RC.vars.keys.modkey,           }, "m",
-        function (c)
-            c.maximized = not c.maximized
-            c:raise()
-        end ,
-        {description = "(un)maximize", group = "client"}),
-    awful.key({ RC.vars.keys.modkey, "Control" }, "m",
-        function (c)
-            c.maximized_vertical = not c.maximized_vertical
-            c:raise()
-        end ,
-        {description = "(un)maximize vertically", group = "client"}),
-    awful.key({ RC.vars.keys.modkey, "Shift"   }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c:raise()
-        end ,
-        {description = "(un)maximize horizontally", group = "client"})
-)
+-- Rules
+clientkeys = keys.clientkeys()
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
@@ -223,8 +179,6 @@ clientbuttons = gears.table.join(
     end)
 )
 
--- Set keys
-root.keys(RC.globalkeys)
 -- }}}
 
 -- {{{ Rules
