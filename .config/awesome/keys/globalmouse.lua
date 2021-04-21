@@ -7,11 +7,11 @@ local module = {}
 
 function module.get()
 	local globalmouse = gears.table.join(
-		-- RMB: 	Toggle main menu
+		-- RMB: 		Toggle main menu
 		awful.button({ }, 3, function () RC.mainmenu:toggle() end),
-		-- Scroll up: 	Go to next tag
+		-- Scroll up: 		Go to next tag
 		awful.button({ }, 4, awful.tag.viewnext),
-		-- Scroll down: Go to previous tag
+		-- Scroll down: 	Go to previous tag
 		awful.button({ }, 5, awful.tag.viewprev)
 	)
 

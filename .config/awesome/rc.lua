@@ -35,7 +35,8 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.t
 local main = {
 	menu 		= require("main.menu"),
 	layouts 	= require("main.layouts"),
-	tags 		= require("main.tags")
+	tags 		= require("main.tags"),
+	rules 		= require("main.rules")
 }
 
 -- Keys
@@ -43,6 +44,7 @@ local keys = {
 	globalkeys 	= require("keys.globalkeys"),
 	globalmouse 	= require("keys.globalmouse"),
 	clientkeys 	= require("keys.clientkeys"),
+	clientmouse 	= require("keys.clientmouse"),
 	bindtotags 	= require("keys.bindtotags")
 }
 
@@ -111,9 +113,6 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
--- Wallpaper
--- Handled by .local/bin/setbg
-
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
 
@@ -166,81 +165,10 @@ end)
 -- }}}
 
 -- Rules
-clientkeys = keys.clientkeys()
-
-clientbuttons = gears.table.join(
-    awful.button({ }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-    end),
-    awful.button({ RC.vars.keys.modkey }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.move(c)
-    end),
-    awful.button({ RC.vars.keys.modkey }, 3, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.resize(c)
-    end)
+awful.rules.rules = main.rules(
+	keys.clientkeys(),
+	keys.clientmouse()
 )
-
--- }}}
-
--- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
-    },
-
-    -- Floating clients.
-    { rule_any = {
-        instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
-          "pinentry",
-        },
-        class = {
-          "Arandr",
-          "Blueman-manager",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-          "Wpa_gui",
-          "veromix",
-          "xtightvncviewer"},
-
-        -- Note that the name property shown in xprop might be set slightly after creation of the client
-        -- and the name shown there might not match defined rules here.
-        name = {
-          "Event Tester",  -- xev.
-        },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-        }
-      }, properties = { floating = true }},
-
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
-    },
-
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
-}
--- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
