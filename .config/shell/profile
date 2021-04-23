@@ -3,7 +3,8 @@
 # Profile file runs on login. Enviroment Variables set here
 
 # Add `~/.local/bin to $PATH
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+localbin=$(find $HOME/.local/bin -type d -printf "%p:")
+export PATH="$PATH:${localbin%%:}" # split up in to 2 lines cus bash is stupid
 
 # Default programs
 export EDITOR="vim"
