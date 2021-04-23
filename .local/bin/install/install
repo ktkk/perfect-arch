@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# VARIABLES
+[ -z "$aurhelper" ] && aurhelper="paru"
+[ -z "$programfile" ] && programfile="$HOME/.local/bin/install/programfile.csv"
+
+installaurhelper() {
+	[ -f "/usr/bin/$1" ] || ( # only install if the aur helper is not already present
+	echo "Installing \"$1\", an AUR helper."
+	cd /tmp || exit 1
+	rm -rf /tmp/"$1"* # remove previous attempt if present
+	git clone https://aur.archlinux.org/"$1".git &&
+	cd "$1" &&
+	makepkg --noconfirm -si >/dev/null 2>&1
+	cd /tmp
+	|| return 1) ;
+}
+
+pacinstall() {
+	echo "Installing \"$1\" with pacman."
+	pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;
+}
+
+aurinstall() {
+	echo "Installing \"$1\" with $aurhelper."
+	$aurhelper -S --noconfirm "$1" >/dev/null 2>&1
+}
+
+installloop() {
+	([ -f "$programfile" ]) && cat "$programfile" | sed '/^#/d' > /tmp/programfile.csv
+	while IFS=, read -r tag program; do
+		case "$tag" in
+			"A") aurinstall "$program" ;;
+			*) pacinstall "$program" ;;
+		esac
+	done < /tmp/programfile.csv ;
+}
+
+# begin install
+installaurhelper $aurhelper
+installloop
