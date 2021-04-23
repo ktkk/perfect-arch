@@ -12,8 +12,7 @@ installaurhelper() {
 	git clone https://aur.archlinux.org/"$1".git &&
 	cd "$1" &&
 	makepkg --noconfirm -si >/dev/null 2>&1
-	cd /tmp
-	|| return 1) ;
+	cd /tmp || return 1) ;
 }
 
 pacinstall() {
