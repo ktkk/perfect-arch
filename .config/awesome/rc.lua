@@ -67,8 +67,13 @@ RC.globalkeys = keys.bindtotags(RC.globalkeys)
 root.buttons(keys.globalmouse())
 root.keys(RC.globalkeys)
 
+-- Widgets
+local widgets = {
+	statusbar 	= require("theme.statusbar")
+}
+
 -- Statusbar
-require("theme.statusbar")
+RC.statusbar = widgets.statusbar
 
 -- Rules
 awful.rules.rules = main.rules(
