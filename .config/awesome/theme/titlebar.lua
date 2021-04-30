@@ -27,7 +27,7 @@ client.connect_signal("request::titlebars", function(c)
 
 	titlebar : setup {
 		{ -- Left
-			awful.titlebar.widget.iconwidget(c),
+			-- awful.titlebar.widget.iconwidget(c),
 
 			awful.titlebar.widget.floatingbutton(c),
 			awful.titlebar.widget.stickybutton(c),
