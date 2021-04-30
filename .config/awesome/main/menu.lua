@@ -39,7 +39,8 @@ function module.get()
 	-- Main menu
 	local menu_items = {
 		{ "Awesome", menu.awesome, beautiful.awesome_icon },
-		{ "Favorites", menu.favorites }
+		{ "Favorites", menu.favorites },
+		{ "Shut down", 'shutdown now' }
 	}
 
 	return menu_items
