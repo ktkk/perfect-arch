@@ -8,15 +8,8 @@ pcall(require, "luarocks.loader")
 -- Standard awesome libraries
 local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
-local wibox = require("wibox") -- Widget and layout library
 local beautiful = require("beautiful") -- Theme handling library
-local naughty = require("naughty") -- Notification library
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
 
 -- global namespace
 RC = {}
@@ -29,6 +22,7 @@ RC.vars = require("vars")
 require("error-handling")
 
 -- Theme
+-- beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
 
 -- Main
