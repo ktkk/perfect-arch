@@ -3,6 +3,7 @@
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 
 local theme = {
 	taglist 	= require("theme.taglist"),
@@ -13,9 +14,15 @@ local taglist_buttons = theme.taglist()
 local tasklist_buttons = theme.tasklist()
 
 -- Keyboard map indicator and switcher
-keyboardlayout = awful.widget.keyboardlayout()
+local keyboardlayout = awful.widget.keyboardlayout()
 -- Textclock widget
-textclock = wibox.widget.textclock()
+local textclock = wibox.widget.textclock()
+-- local textclock = wibox.widget{
+--   	format = "%L:%M",
+--         align = 'center',
+--         valign = 'center',
+--         widget = wibox.widget.textclock
+-- } 
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Create a promptbox for each screen
@@ -51,9 +58,12 @@ awful.screen.connect_for_each_screen(function(s)
 
 	-- Create the statusbar
 	s.statusbar = awful.wibar({
+		screen = s,
 		position = "bottom",
-		height = 20,
-		screen = s
+		-- height = beautiful.wibar_height,
+		-- width = s.geometry.width - (2 * beautiful.wibar_x_padding),
+		-- shape = gears.shape.rounded_rect,
+		bg = beautiful.wibar_bg,
 	})
 
 	-- Add widgets to the wibox
