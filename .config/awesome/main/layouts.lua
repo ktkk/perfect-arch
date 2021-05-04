@@ -6,10 +6,10 @@ local module = {}
 
 function module.get()
 	local layouts = {
-		-- Floating layout
-		awful.layout.suit.floating,
 		-- Tile right
 		awful.layout.suit.tile,
+		-- Floating layout
+		awful.layout.suit.floating,
 		-- Tile bottom
 		awful.layout.suit.tile.bottom,
 		-- Fibonacci dwindle
