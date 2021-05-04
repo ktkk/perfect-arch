@@ -21,4 +21,3 @@ termstart() {
 
 # Place autostart applications here
 start setbg
-start nm-applet
