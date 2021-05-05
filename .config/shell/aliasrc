@@ -38,3 +38,5 @@ alias -g \
 alias weather="curl wrrt.in"
 
 alias dotfiles='git --git-dir=$HOME/.dots/ --work-tree=$HOME'
+
+alias xreload='xrdb -merge -I${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources'
