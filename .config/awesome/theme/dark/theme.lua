@@ -1,31 +1,43 @@
----------------------------
--- Default awesome theme --
----------------------------
-
 local theme_assets = require("beautiful.theme_assets")
+
 local xresources = require("beautiful.xresources")
+local xrdb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
 
-local gfs = require("gears.filesystem")
-local themes_path = gfs.get_themes_dir()
+local gears = require("gears")
+local themes_path = gears.filesystem.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "sans 8"
+-- Variables
+theme.xbackground = xrdb.background or "#222222"
+theme.xforeground = xrdb.foreground or "#dfdfdf"
+theme.xblack = { light = xrdb.color0 or "#2c2c2", dark = xrdb.color8 or "#404040" }
+theme.xred = { light = xrdb.color1 or "#c44b44", dark = xrdb.color9 or "#bf615e" }
+theme.xgreen = { light = xrdb.color2 or "#758c5a", dark = xrdb.color10 or "#74b74" }
+theme.xyellow = { light = xrdb.color3 or "#d3904d", dark = xrdb.color11 or "#d6aa58" }
+theme.xblue = { light = xrdb.color4 or "#3a5fa9", dark = xrdb.color12 or "#6781b6" }
+theme.xmagenta = { light = xrdb.color5 or "#935b9c", dark = xrdb.color13 or "#cfa1d2" }
+theme.xcyan = { light = xrdb.color6 or "#296b72", dark = xrdb.color14 or "#6cbac3" }
+theme.xwhite = { light = xrdb.color7 or "#dddddd", dark = xrdb.color15 or "#ffffff" }
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
-theme.bg_systray    = theme.bg_normal
+theme.font_name = "FiraCode"
+theme.font = theme.font_name .. "11"
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+-- BG colors
+theme.bg_normal = theme.xblack.light
+theme.bg_focus = theme.xbackground
+theme.bg_urgent = theme.xyellow.dark
+theme.bg_minimize = theme.xbackground
+theme.bg_systray = theme.bg_normal
 
-theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(1)
+theme.fg_normal     = theme.xwhite.light
+theme.fg_focus      = theme.xforeground
+theme.fg_urgent     = theme.xyellow.light
+theme.fg_minimize   = theme.xforeground
+
+theme.useless_gap   = dpi(5)
+theme.border_width  = dpi(0)
 theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
@@ -69,6 +81,9 @@ theme.menu_width  = dpi(100)
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
+
+-- Statusbar
+theme.wibar_x_padding = dpi(0)
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
@@ -127,5 +142,3 @@ theme.awesome_icon = theme_assets.awesome_icon(
 theme.icon_theme = nil
 
 return theme
-
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
