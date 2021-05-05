@@ -60,8 +60,8 @@ awful.screen.connect_for_each_screen(function(s)
 	s.statusbar = awful.wibar({
 		screen = s,
 		position = "bottom",
-		-- height = beautiful.wibar_height,
-		-- width = s.geometry.width - (2 * beautiful.wibar_x_padding),
+		height = beautiful.wibar_height,
+		width = s.geometry.width - (2 * beautiful.wibar_x_padding),
 		-- shape = gears.shape.rounded_rect,
 		bg = beautiful.wibar_bg,
 	})
