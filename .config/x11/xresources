@@ -39,7 +39,7 @@
 
 ! Font
 ! ----
-#define myfont FiraMono
+#define myfont FiraCode
 #define myfontsize 11
 
 ! Padding
