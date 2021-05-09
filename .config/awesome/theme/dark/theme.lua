@@ -1,40 +1,42 @@
 local theme_assets = require("beautiful.theme_assets")
 
 local xresources = require("beautiful.xresources")
-local xrdb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
+local xrdb = xresources.get_current_theme()
 
 local gears = require("gears")
 local themes_path = gears.filesystem.get_themes_dir()
 
-local theme = {}
+local theme = dofile(themes_path .. "default/theme.lua")
 
 -- Variables
-theme.xbackground = xrdb.background or "#222222"
-theme.xforeground = xrdb.foreground or "#dfdfdf"
-theme.xblack = { light = xrdb.color0 or "#2c2c2", dark = xrdb.color8 or "#404040" }
-theme.xred = { light = xrdb.color1 or "#c44b44", dark = xrdb.color9 or "#bf615e" }
-theme.xgreen = { light = xrdb.color2 or "#758c5a", dark = xrdb.color10 or "#74b74" }
-theme.xyellow = { light = xrdb.color3 or "#d3904d", dark = xrdb.color11 or "#d6aa58" }
-theme.xblue = { light = xrdb.color4 or "#3a5fa9", dark = xrdb.color12 or "#6781b6" }
-theme.xmagenta = { light = xrdb.color5 or "#935b9c", dark = xrdb.color13 or "#cfa1d2" }
-theme.xcyan = { light = xrdb.color6 or "#296b72", dark = xrdb.color14 or "#6cbac3" }
-theme.xwhite = { light = xrdb.color7 or "#dddddd", dark = xrdb.color15 or "#ffffff" }
+local colors = {
+	xbackground = xrdb.background or "#222222",
+	xforeground = xrdb.foreground or "#dfdfdf",
+	xblack = { light = xrdb.color0 or "#2c2c2", dark = xrdb.color8 or "#404040" },
+	xred = { light = xrdb.color1 or "#c44b44", dark = xrdb.color9 or "#bf615e" },
+	xgreen = { light = xrdb.color2 or "#758c5a", dark = xrdb.color10 or "#74b74" },
+	xyellow = { light = xrdb.color3 or "#d3904d", dark = xrdb.color11 or "#d6aa58" },
+	xblue = { light = xrdb.color4 or "#3a5fa9", dark = xrdb.color12 or "#6781b6" },
+	xmagenta = { light = xrdb.color5 or "#935b9c", dark = xrdb.color13 or "#cfa1d2" },
+	xcyan = { light = xrdb.color6 or "#296b72", dark = xrdb.color14 or "#6cbac3" },
+	xwhite = { light = xrdb.color7 or "#dddddd", dark = xrdb.color15 or "#ffffff" },
+}
 
 theme.font_name = "FiraCode"
 theme.font = theme.font_name .. "11"
 
 -- BG colors
-theme.bg_normal = theme.xblack.light
-theme.bg_focus = theme.xbackground
-theme.bg_urgent = theme.xyellow.dark
-theme.bg_minimize = theme.xbackground
+theme.bg_normal = colors.xblack.light
+theme.bg_focus = colors.xbackground
+theme.bg_urgent = colors.xyellow.dark
+theme.bg_minimize = colors.xbackground
 theme.bg_systray = theme.bg_normal
 
-theme.fg_normal     = theme.xwhite.light
-theme.fg_focus      = theme.xforeground
-theme.fg_urgent     = theme.xyellow.light
-theme.fg_minimize   = theme.xforeground
+theme.fg_normal     = colors.xwhite.light
+theme.fg_focus      = colors.xforeground
+theme.fg_urgent     = colors.xyellow.light
+theme.fg_minimize   = colors.xforeground
 
 theme.useless_gap   = dpi(5)
 theme.border_width  = dpi(0)
