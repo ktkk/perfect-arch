@@ -7,10 +7,15 @@ if [ $(< /sys/devices/virtual/dmi/id/product_name) == "VirtualBox" ]; then
 	xrandr --output Virtual-1 --mode 1920x1080
 fi
 
+# Source Xresources
+xrdb -merge -I${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources
+
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
 	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
 else
 	. "$HOME/.xprofile"
 fi
 
-exec awesome
+# Start WM
+sleep 0.5
+exec awesome >> ${XDG_CACHE_HOME:-$HOME/.cache}/awesome/stdout 2>> ${XDG_CACHE_HOME:-$HOME/.cache}/awesome/stderr

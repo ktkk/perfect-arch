@@ -1,9 +1,6 @@
 #!/bin/sh
 
-# autostart regardless of WM/DE
-
-# Source Xresources
-xrdb -merge -I${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources.d ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
+# WM/DE independant autostart
 
 # Start if not already running function
 start() {
