@@ -16,13 +16,19 @@ local tasklist_buttons = theme.tasklist()
 -- Keyboard map indicator and switcher
 local keyboardlayout = awful.widget.keyboardlayout()
 -- Textclock widget
-local textclock = wibox.widget.textclock()
--- local textclock = wibox.widget{
---   	format = "%L:%M",
---         align = 'center',
---         valign = 'center',
---         widget = wibox.widget.textclock
--- } 
+local textclock = wibox.widget{
+  	format = "%H:%M:%S",
+        align = 'center',
+        valign = 'center',
+        widget = wibox.widget.textclock
+} 
+-- Date widget
+local date = wibox.widget{
+	format = "%A %B %d, %Y",
+	align = 'center',
+	valign = 'center',
+	widget = wibox.widget.textclock
+}
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Create a promptbox for each screen
@@ -62,7 +68,8 @@ awful.screen.connect_for_each_screen(function(s)
 		position = "bottom",
 		height = beautiful.wibar_height,
 		width = s.geometry.width - (2 * beautiful.wibar_x_padding),
-		-- shape = gears.shape.rounded_rect,
+		border_width = 3,
+		border_color = beautiful.border_focus,
 		bg = beautiful.wibar_bg,
 	})
 
@@ -83,6 +90,7 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.fixed.horizontal,
 			keyboardlayout,
 			wibox.widget.systray(),
+			date,
 			textclock,
 			s.layoutbox,
 		},
