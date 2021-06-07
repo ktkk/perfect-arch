@@ -46,5 +46,6 @@
 ! -------
 #define mypadding 10
 
-#include "colors"
+! Includes
 #include "urxvt"
+#include "colors"
