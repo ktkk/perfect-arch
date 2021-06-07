@@ -50,6 +50,7 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/plugged"'
 
 	" Colorshemes
 	Plug 'flazz/vim-colorschemes'
+	Plug 'qualiabyte/vim-colorstepper'
 
 	" Fern filemanager
 	Plug 'lambdalisue/fern.vim'
@@ -59,7 +60,7 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/plugged"'
 call plug#end()
 
 " Set Colorsheme
-colorscheme iceberg
+colorscheme katkak
 
 " Cursor
 let &t_SI="\<ESC>[5 q" " Blinking |-beam in insert mode
