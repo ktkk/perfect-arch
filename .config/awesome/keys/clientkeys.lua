@@ -15,15 +15,15 @@ function module.get()
 
 		-------------------------------------------------------------------------------------------
 		-- Clients
-		-- Super - F: 		Fullscreen client
-		awful.key({ keys.modkey, }, "f",
+		-- Super - B: 		Toggle fullscreen client
+		awful.key({ keys.modkey, }, "b",
 				function (c)
 					c.fullscreen = not c.fullscreen
 					c:raise()
 				end,
 			{description = "Toggle fullscreen", group = "client"}),
-		-- Super - Shift - F: 	Float client
-		awful.key({ keys.modkey, keys.shift }, keys.space, awful.client.floating.toggle, {description = "toggle floating", group = "client"}),
+		-- Super - F: 		Toggle float client
+		awful.key({ keys.modkey }, "f", awful.client.floating.toggle, {description = "toggle floating", group = "client"}),
 		-- Super - Q: 		Close client
 		awful.key({ keys.modkey, }, "q",
 				function (c)
