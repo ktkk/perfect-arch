@@ -1,15 +1,19 @@
-local theme_assets = require("beautiful.theme_assets")
-
+-- theme.lua
+-- Dark theme file
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local xrdb = xresources.get_current_theme()
 
 local gears = require("gears")
+
+-- Inherit from the default theme
 local themes_path = gears.filesystem.get_themes_dir()
 
 local theme = dofile(themes_path .. "default/theme.lua")
+local theme_assets = require("beautiful.theme_assets")
 
 -- Variables
+-- Query xresources
 local colors = {
 	xbackground = xrdb.background or "#222222",
 	xforeground = xrdb.foreground or "#dfdfdf",
@@ -23,26 +27,32 @@ local colors = {
 	xwhite = { light = xrdb.color7 or "#dddddd", dark = xrdb.color15 or "#ffffff" },
 }
 
+-- Font
 theme.font_name = "FiraCode"
-theme.font = theme.font_name .. "11"
+theme.font_size = "11"
+theme.font = theme.font_name .. theme.font_size
 
 -- BG colors
-theme.bg_normal = colors.xblack.light
-theme.bg_focus = colors.xbackground
+theme.bg_normal = colors.xbackground
+theme.bg_focus = colors.xblack.light
 theme.bg_urgent = colors.xyellow.dark
 theme.bg_minimize = colors.xbackground
 theme.bg_systray = theme.bg_normal
 
+-- FG colors
 theme.fg_normal     = colors.xwhite.light
 theme.fg_focus      = colors.xforeground
 theme.fg_urgent     = colors.xyellow.light
 theme.fg_minimize   = colors.xforeground
 
+-- Gaps
 theme.useless_gap   = dpi(5)
-theme.border_width  = dpi(0)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+
+-- Borders
+theme.border_width  = dpi(3)
+theme.border_normal = colors.xbackground
+theme.border_focus  = colors.xblack.light
+theme.border_marked = colors.xyellow.dark
 
 -- There are other variable sets
 -- overriding the default one when
@@ -85,7 +95,7 @@ theme.menu_width  = dpi(100)
 --theme.bg_widget = "#cc0000"
 
 -- Statusbar
-theme.wibar_x_padding = dpi(0)
+theme.wibar_x_padding = dpi(12)
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
