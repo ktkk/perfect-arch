@@ -25,6 +25,9 @@ set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo,$HOME/.config/vim/viminfo
 " Disable netrw bookmarks
 let g:netrw_dirhistmax = 0
 
+" Enable code snippet syntax highlighting in Markdown files
+let g:markdown_fenced_languages = ['html', 'css', 'python', 'vim', 'bash', 'sh', 'c', 'cpp', 'make']
+
 " Plugin Manager
 " Autoinstall Plug if it's not present
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/autoload/plug.vim"'))
@@ -37,7 +40,7 @@ endif
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/vim/plugged"'))
 	" Hex color preview
 	Plug 'ap/vim-css-color'
-	
+
 	" Enhanced cpp highlighting
 	Plug 'octol/vim-cpp-enhanced-highlight'
 
@@ -61,6 +64,14 @@ call plug#end()
 
 " Set Colorsheme
 colorscheme katkak
+
+" Hidden characters
+set list
+set listchars=tab:→\ ,space:·,trail:+,nbsp:␣,precedes:⇥,extends:⇤
+
+" Highlight trailing whitespace
+highlight ExtraWhiteSpace ctermbg=red guibg=red
+match ExtraWhiteSpace /\s\+$/
 
 " Cursor
 let &t_SI="\<ESC>[5 q" " Blinking |-beam in insert mode
