@@ -17,5 +17,4 @@ else
 fi
 
 # Start WM
-sleep 0.5
 exec awesome >> ${XDG_CACHE_HOME:-$HOME/.cache}/awesome/stdout 2>> ${XDG_CACHE_HOME:-$HOME/.cache}/awesome/stderr
