@@ -13,7 +13,7 @@ function module.get()
 				{"1", "2", "3", "4", "5"}, s, RC.layouts[1]
 			)
 		end)
-	
+
 	return tags
 end
 

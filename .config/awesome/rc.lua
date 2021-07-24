@@ -52,7 +52,6 @@ RC.tags = main.tags()
 
 -- Menu
 RC.mainmenu = awful.menu({ items = main.menu() })
-RC.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu })
 
 -- Mouse and Key bindings
 RC.globalkeys = keys.globalkeys()

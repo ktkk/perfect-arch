@@ -13,21 +13,71 @@ local theme = {
 local taglist_buttons = theme.taglist()
 local tasklist_buttons = theme.tasklist()
 
--- Keyboard map indicator and switcher
-local keyboardlayout = awful.widget.keyboardlayout()
 -- Textclock widget
 local textclock = wibox.widget{
-  	format = "%H:%M:%S",
-        align = 'center',
-        valign = 'center',
-        widget = wibox.widget.textclock
-} 
--- Date widget
-local date = wibox.widget{
-	format = "%A %B %d, %Y",
-	align = 'center',
-	valign = 'center',
-	widget = wibox.widget.textclock
+	{
+		{
+			{
+				id = "clock",
+				widget = wibox.widget.textclock("%H:%M:%S")
+			},
+			widget = wibox.container.margin,
+			left = 12,
+			right = 12,
+		},
+		widget = wibox.container.background,
+		shape = gears.shape.rounded_bar,
+		bg = beautiful.bg_focus,
+	},
+	widget = wibox.container.margin,
+	top = 1,
+	bottom = 1,
+}
+textclock:connect_signal("mouse::enter",
+	function()
+		textclock:get_children_by_id("clock")[1].format = "%a %d %b, %H:%M:%S"
+	end
+)
+textclock:connect_signal("mouse::leave",
+	function()
+		textclock:get_children_by_id("clock")[1].format = "%H:%M:%S"
+	end
+)
+
+-- Systray
+local systray = {
+	{
+		{
+			widget = wibox.widget.systray(),
+			id = "systray"
+		},
+		widget = wibox.container.margin,
+		top = 3,
+		bottom = 3,
+		left = 3,
+		right = 3
+	},
+	widget = wibox.container.background,
+	shape = gears.shape.rounded_bar,
+	bg = beautiful.bg_focus,
+}
+
+-- Launcher
+local launcher = {
+	{
+		{
+			widget = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu }),
+		},
+		widget = wibox.container.margin,
+		top = 3,
+		bottom = 3,
+		left = 3,
+		right = 3,
+
+	},
+	widget = wibox.container.background,
+	shape = gears.shape.rounded_bar,
+	bg = beautiful.bg_focus,
 }
 
 awful.screen.connect_for_each_screen(function(s)
@@ -78,7 +128,7 @@ awful.screen.connect_for_each_screen(function(s)
 		layout = wibox.layout.align.horizontal,
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
-			RC.launcher,
+			launcher,
 			s.taglist,
 			s.promptbox,
 		},
@@ -88,9 +138,8 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			keyboardlayout,
+			systray,
 			wibox.widget.systray(),
-			date,
 			textclock,
 			s.layoutbox,
 		},

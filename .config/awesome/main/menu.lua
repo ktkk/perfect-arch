@@ -9,10 +9,11 @@ local module = {}
 
 local apps = RC.vars.apps
 
+-- Menu awesome category
 menu.awesome = {
 	-- Show hotkey window
-	{ "hotkeys", 
-   	function()
+	{ "hotkeys",
+	function()
 		hotkeys_popup.show_help(nil, awful.screen.focused())
 	end
 	},
@@ -28,6 +29,7 @@ menu.awesome = {
 	},
 }
 
+-- Menu favorites category
 menu.favorites = {
 	{ "Terminal", apps.terminal },
 	{ "File Manager", apps.filemanager },

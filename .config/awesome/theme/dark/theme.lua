@@ -28,31 +28,31 @@ local colors = {
 }
 
 -- Font
-theme.font_name = "FiraCode"
-theme.font_size = "11"
-theme.font = theme.font_name .. theme.font_size
+theme.font_name 	= "FiraCode"
+theme.font_size 	= "11"
+theme.font 		= theme.font_name .. theme.font_size
 
 -- BG colors
-theme.bg_normal = colors.xbackground
-theme.bg_focus = colors.xblack.light
-theme.bg_urgent = colors.xyellow.dark
-theme.bg_minimize = colors.xbackground
-theme.bg_systray = theme.bg_normal
+theme.bg_normal 	= colors.xbackground
+theme.bg_focus 		= colors.xblack.light
+theme.bg_urgent 	= colors.xyellow.dark
+theme.bg_minimize 	= colors.xbackground
+theme.bg_systray 	= theme.bg_normal
 
 -- FG colors
-theme.fg_normal     = colors.xwhite.light
-theme.fg_focus      = colors.xforeground
-theme.fg_urgent     = colors.xyellow.light
-theme.fg_minimize   = colors.xforeground
+theme.fg_normal 	= colors.xwhite.light
+theme.fg_focus 		= colors.xforeground
+theme.fg_urgent 	= colors.xyellow.light
+theme.fg_minimize 	= colors.xforeground
 
 -- Gaps
-theme.useless_gap   = dpi(5)
+theme.useless_gap 	= dpi(5)
 
 -- Borders
-theme.border_width  = dpi(3)
-theme.border_normal = colors.xbackground
-theme.border_focus  = colors.xblack.light
-theme.border_marked = colors.xyellow.dark
+theme.border_width 	= dpi(3)
+theme.border_normal 	= colors.xbackground
+theme.border_focus 	= colors.xblack.light
+theme.border_marked 	= colors.xyellow.dark
 
 -- There are other variable sets
 -- overriding the default one when
