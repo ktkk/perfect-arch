@@ -19,7 +19,9 @@ local textclock = wibox.widget{
 		{
 			{
 				id = "clock",
-				widget = wibox.widget.textclock("%H:%M:%S")
+				refresh = 1,
+				format = "%H:%M:%S",
+				widget = wibox.widget.textclock
 			},
 			widget = wibox.container.margin,
 			left = 12,
