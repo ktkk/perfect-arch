@@ -1,0 +1,4 @@
+*font: xft:myfont:size=myfontsize
+*boldFont: xft:myfont:bold:size=myfontsize
+*italicFont: xft:myfont:italic:size=myfontsize
+*boldItalicFont: xft:myfont:boldItalic:size=myfontsize

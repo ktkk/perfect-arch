@@ -39,7 +39,7 @@
 
 ! Font
 ! ----
-#define myfont FiraCode
+#define myfont Fira Code
 #define myfontsize 11
 
 ! Padding
@@ -49,3 +49,4 @@
 ! Includes
 #include "urxvt"
 #include "colors"
+#include "fonts"

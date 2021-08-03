@@ -8,10 +8,6 @@ URxvt*depth: 32
 
 ! Fonts
 ! -----
-URxvt*font: xft:myfont:size=myfontsize
-URxvt.boldFont: xft:myfont:bold:size=myfontsize
-URxvt.italicFont: xft:myfont:italic:size=myfontsize
-URxvt.boldItalicFont: xft:myfont:boldItalic:size=myfontsize
 URxvt*allow_bold: true
 
 ! Padding
@@ -35,15 +31,15 @@ URxvt.matcher.button: 1
 ! Copy Pasting
 ! ------------
 
-! 	Disabling ISO 14755 unicode input so we can use Ctrl-Shift bindings
+! Disabling ISO 14755 unicode input so we can use Ctrl-Shift bindings
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
-!	Disabling Ctrl-Alt-c & Ctrl-Alt-v as default Copy & Paste keybinds
+! Disabling Ctrl-Alt-c & Ctrl-Alt-v as default Copy & Paste keybinds
 URxvt.keysym.C-M-c: builtin-string:
 URxvt.keysym.C-M-v: builtin-string:
 
-!	Bind Ctrl-Shift-c & Ctrl-Shift-v to Copy & Paste
+! Bind Ctrl-Shift-c & Ctrl-Shift-v to Copy & Paste
 URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
 URxvt.keysym.C-S-0x56: eval:paste_clipboard
 

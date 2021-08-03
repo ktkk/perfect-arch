@@ -1,6 +1,6 @@
 function get_color(name)
 	local query = io.popen("xrdb -query"):read("*a")
-	local color = query:match("*" .. name .. ":%s*(#%x%x%x%x%x%x)")
+	local color = query:match("%*" .. name .. ":%s*(#%x%x%x%x%x%x)")
 
 	return color
 end
