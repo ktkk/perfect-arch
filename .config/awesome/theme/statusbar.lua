@@ -64,6 +64,12 @@ local systray = {
 	bg = beautiful.bg_focus,
 }
 
+local volumebar = wibox.widget{
+	widget = wibox.container.margin,
+	top = 1,
+	bottom = 1,
+}
+
 -- Launcher
 local launcher = {
 	{
@@ -118,32 +124,44 @@ awful.screen.connect_for_each_screen(function(s)
 	s.statusbar = awful.wibar({
 		screen = s,
 		position = "bottom",
-		height = beautiful.wibar_height,
-		width = s.geometry.width - (2 * beautiful.wibar_x_padding),
-		border_width = 3,
-		border_color = beautiful.border_focus,
+		height = 36,
 		bg = beautiful.wibar_bg,
 	})
 
 	-- Add widgets to the wibox
 	s.statusbar:setup {
-		layout = wibox.layout.align.horizontal,
-		{ -- Left widgets
-			layout = wibox.layout.fixed.horizontal,
-			launcher,
-			s.taglist,
-			s.promptbox,
+		{
+			{
+				layout = wibox.layout.align.horizontal,
+				expand = "none",
+				{ -- Left widgets
+					layout = wibox.layout.fixed.horizontal,
+					launcher,
+					s.taglist,
+					s.promptbox,
+				},
+				{ -- Middle widgets
+					layout = wibox.layout.stack,
+					s.tasklist,
+				},
+				{ -- Right widgets
+					layout = wibox.layout.fixed.horizontal,
+					systray,
+					-- wibox.widget.systray(),
+					volumebar,
+					textclock,
+					s.layoutbox,
+				},
+			},
+			bottom = 4,
+			top = 4,
+			left = 4,
+			right = 4,
+			color = beautiful.bg_normal,
+			widget = wibox.container.margin,
 		},
-		{ -- Middle widgets
-			layout = wibox.layout.stack,
-			s.tasklist,
-		},
-		{ -- Right widgets
-			layout = wibox.layout.fixed.horizontal,
-			systray,
-			wibox.widget.systray(),
-			textclock,
-			s.layoutbox,
-		},
+		top = 3,
+		color = beautiful.border_focus,
+		widget = wibox.container.margin,
 	}
 end)
