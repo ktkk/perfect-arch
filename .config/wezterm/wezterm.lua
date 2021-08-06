@@ -7,6 +7,16 @@ function font_with_fallback(name, params)
 	return wezterm.font_with_fallback(names, params)
 end
 
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	if tab.is_active then
+		return {
+			{ text = " " .. tab.active_pane.title .. " " },
+		}
+	end
+
+	return tab.active_pane.title
+end)
+
 return {
 	-- Colors
 	colors = theme.colors,
