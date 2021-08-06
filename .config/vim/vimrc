@@ -19,8 +19,8 @@ set belloff=all
 set signcolumn=number
 
 " XDG kinda poggers
-set rtp+=$XDG_CONFIG_HOME/vim,$HOME/.config/vim
-set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo,$HOME/.config/vim/viminfo
+set rtp+=$XDG_CONFIG_HOME/vim
+set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo
 
 " Disable netrw bookmarks
 let g:netrw_dirhistmax = 0
