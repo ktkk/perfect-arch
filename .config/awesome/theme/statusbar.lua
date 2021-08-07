@@ -117,7 +117,40 @@ awful.screen.connect_for_each_screen(function(s)
 	s.tasklist = awful.widget.tasklist {
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
-		buttons = tasklist_buttons
+		buttons = tasklist_buttons,
+		style = {
+			shape = gears.shape.rounded_rect,
+		},
+		layout = {
+			spacing = 6,
+			layout = wibox.layout.fixed.horizontal,
+		},
+		widget_template = {
+			{
+				{
+					{
+						id = "icon_role",
+						widget = wibox.widget.imagebox,
+					},
+					{
+						forced_width = 6,
+						layout = wibox.layout.fixed.horizontal,
+					},
+					{
+						id = "text_role",
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				top = 3,
+				bottom = 3,
+				left = 10,
+				right = 10,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+		}
 	}
 
 	-- Create the statusbar
