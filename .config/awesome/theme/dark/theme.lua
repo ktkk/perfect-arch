@@ -6,6 +6,9 @@ local xrdb = xresources.get_current_theme()
 
 local gears = require("gears")
 
+-- Icons
+local icon_path = gears.filesystem.get_configuration_dir() .. "theme/dark/"
+
 -- Inherit from the default theme
 local themes_path = gears.filesystem.get_themes_dir()
 
@@ -134,31 +137,31 @@ theme.tasklist_bg_focus = colors.xblack.dark
 theme.wibar_x_padding = dpi(12)
 
 -- Define the image to load
-theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = themes_path.."default/titlebar/close_focus.png"
+theme.titlebar_close_button_normal = icon_path.."titlebar/close_normal.png"
+theme.titlebar_close_button_focus  = icon_path.."titlebar/close_focus.png"
 
-theme.titlebar_minimize_button_normal = themes_path.."default/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = themes_path.."default/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal = icon_path.."titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_focus  = icon_path.."titlebar/minimize_focus.png"
 
-theme.titlebar_ontop_button_normal_inactive = themes_path.."default/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = themes_path.."default/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = themes_path.."default/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = themes_path.."default/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive = icon_path.."titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive  = icon_path.."titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active = icon_path.."titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active  = icon_path.."titlebar/ontop_focus_active.png"
 
-theme.titlebar_sticky_button_normal_inactive = themes_path.."default/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = themes_path.."default/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = themes_path.."default/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = themes_path.."default/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive = icon_path.."titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive  = icon_path.."titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active = icon_path.."titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active  = icon_path.."titlebar/sticky_focus_active.png"
 
-theme.titlebar_floating_button_normal_inactive = themes_path.."default/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = themes_path.."default/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = themes_path.."default/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = themes_path.."default/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive = icon_path.."titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive  = icon_path.."titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active = icon_path.."titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active  = icon_path.."titlebar/floating_focus_active.png"
 
-theme.titlebar_maximized_button_normal_inactive = themes_path.."default/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = icon_path.."titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = icon_path.."titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active = icon_path.."titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active  = icon_path.."titlebar/maximized_focus_active.png"
 
 theme.wallpaper = themes_path.."default/background.png"
 
