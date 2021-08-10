@@ -39,22 +39,22 @@ function module.get()
 		-- Super - J:		Cycle clients left
 		awful.key({ keys.modkey, }, "j",
 				function ()
-				    awful.client.focus.byidx( 1)
+					awful.client.focus.byidx( 1)
 				end,
 			{description = "Focus next by index", group = "client"}),
 		-- Super - K:		Cycle clients right
 		awful.key({ keys.modkey, }, "k",
 				function ()
-				    awful.client.focus.byidx(-1)
+					awful.client.focus.byidx(-1)
 				end,
 			{description = "Focus previous by index", group = "client"}),
 		-- Super - Shift - Tab:	Cycle 2 most recent clients
 		awful.key({ keys.modkey, keys.shift }, keys.tab,
 				function ()
-				    awful.client.focus.history.previous()
-				    if client.focus then
-					client.focus:raise()
-				    end
+					awful.client.focus.history.previous()
+					if client.focus then
+						client.focus:raise()
+					end
 				end,
 			{description = "Go back", group = "client"}),
 		-- Super - U:		Jump to urgent client
@@ -163,7 +163,7 @@ function module.get()
 				function ()
 					awful.spawn(apps.terminal)
 				end,
-			  {description = "Open a terminal", group = "launcher"}),
+			{description = "Open a terminal", group = "launcher"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Run prompt
@@ -172,18 +172,18 @@ function module.get()
 				function ()
 					awful.screen.focused().mypromptbox:run()
 				end,
-			  {description = "Run prompt", group = "launcher"}),
+			{description = "Run prompt", group = "launcher"}),
 		-- Super - X:		Lua run prompt
 		awful.key({ keys.modkey }, "x",
 				function ()
 					  awful.prompt.run {
-						  prompt       = "Run Lua code: ",
-						  textbox      = awful.screen.focused().mypromptbox.widget,
-						  exe_callback = awful.util.eval,
-						  history_path = awful.util.get_cache_dir() .. "/history_eval"
+						prompt = "Run Lua code: ",
+						textbox = awful.screen.focused().mypromptbox.widget,
+						exe_callback = awful.util.eval,
+						history_path = awful.util.get_cache_dir() .. "/history_eval"
 					  }
 				end,
-			  {description = "Lua execute prompt", group = "awesome"}),
+			{description = "Lua execute prompt", group = "awesome"}),
 
 		-------------------------------------------------------------------------------------------
 		-- Menubar
@@ -191,7 +191,28 @@ function module.get()
 				function()
 					menubar.show()
 				end,
-			  {description = "Show the menubar", group = "launcher"})
+			{description = "Show the menubar", group = "launcher"}),
+		-------------------------------------------------------------------------------------------
+		-- Volume control
+		-- Volume down
+		awful.key({}, "XF86AudioRaiseVolume",
+				function()
+					awful.spawn.easy_async_with_shell("pactl set-sink-volume @DEFAULT_SINK@ +5%",
+						function() awesome.emit_signal("volume_refresh") end)
+				end,
+			{description = "Raise volume by 5%", group = "audio"}),
+		awful.key({}, "XF86AudioLowerVolume",
+				function()
+					awful.spawn.easy_async_with_shell("pactl set-sink-volume @DEFAULT_SINK@ -5%",
+						function() awesome.emit_signal("volume_refresh") end)
+				end,
+			{description = "Lower volume by 5%", group = "audio"}),
+		awful.key({}, "XF86AudioLowerVolume",
+				function()
+					awful.spawn.easy_async_with_shell("pactl set-sink-mute @DEFAULT_SINK@ toggle",
+						function() awesome.emit_signal("volume_refresh") end)
+				end,
+			{description = "Mute audio", group = "audio"})
 	)
 
 	return globalkeys
