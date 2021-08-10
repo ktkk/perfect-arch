@@ -101,6 +101,7 @@ local volumebar = wibox.widget{
 						widget = wibox.widget.progressbar,
 						forced_width = 80,
 						shape = gears.shape.rounded_bar,
+						bar_shape = gears.shape.rounded_bar,
 						background_color = beautiful.bg_focus,
 					},
 					{
