@@ -65,7 +65,7 @@ textclock:connect_signal("mouse::leave",
 local systray = {
 	{
 		{
-			widget = wibox.widget.systray(),
+			widget = wibox.widget.systray,
 			id = "systray"
 		},
 		widget = wibox.container.margin,
@@ -186,12 +186,12 @@ volumebar:connect_signal("mouse::leave", function()
 	update_volume()
 end)
 
-gears.timer {
-	timeout = 0.1,
-	call_now = true,
-	autostart = true,
-	callback = function() update_volume() end,
-}
+-- gears.timer {
+-- 	timeout = 5,
+-- 	call_now = true,
+-- 	autostart = true,
+-- 	callback = function() update_volume() end,
+-- }
 
 -- ]]
 
