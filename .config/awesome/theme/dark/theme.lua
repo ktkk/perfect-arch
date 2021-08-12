@@ -9,11 +9,11 @@ local gears = require("gears")
 -- Icons
 local icon_path = gears.filesystem.get_configuration_dir() .. "theme/dark/"
 
+-- TODO: write a function that sets the svg colors according to the theme colors
+
 -- Inherit from the default theme
 local themes_path = gears.filesystem.get_themes_dir()
-
-local theme = dofile(themes_path .. "default/theme.lua")
-local theme_assets = require("beautiful.theme_assets")
+local theme = {}
 
 -- Variables
 -- Query xresources
@@ -105,15 +105,6 @@ theme.hotkeys_fg = colors.xforeground
 theme.hotkeys_modifiers_fg = colors.xwhite.light
 theme.hotkeys_shape = gears.shape.rounded_rect
 
--- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
-
 -- Variables set for theming notifications:
 -- notification_font
 -- notification_[bg|fg]
@@ -123,7 +114,6 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(15)
 theme.menu_width  = dpi(100)
 
@@ -137,40 +127,60 @@ theme.tasklist_plain_task_name = true
 theme.tasklist_bg_normal = colors.xblack.light
 theme.tasklist_bg_focus = colors.xblack.dark
 
+-- Tag list
+theme.taglist_dots_client = colors.xforeground
+theme.taglist_dots_no_client = colors.xblack.dark
+theme.taglist_focus = colors.xyellow.light
+theme.taglist_hover = colors.xblack.dark
+theme.taglist_disable_icon = true
+
 -- Statusbar
 theme.wibar_x_padding = dpi(12)
 theme.volume_indicator_bar_left = colors.xyellow.light
 theme.volume_indicator_bar_right = colors.xyellow.dark
 
+-- Bling
+theme.task_preview_widget_border_radius = dpi(8)
+theme.task_preview_widget_bg = theme.bg_normal
+theme.task_preview_widget_border_color = theme.border_focus
+theme.task_preview_widget_border_width = theme.border_width
+theme.task_preview_widget_margin = 3
+
+theme.tag_preview_widget_border_radius = dpi(8)
+theme.tag_preview_client_border_radius = dpi(8)
+theme.tag_preview_client_opacity = 1
+theme.tag_preview_client_border_color = theme.border_focus
+theme.tag_preview_client_border_width = theme.border_width
+theme.tag_preview_widget_border_color = theme.border_focus
+theme.tag_preview_widget_border_width = theme.border_width
+theme.tag_preview_widget_margin = dpi(6)
+
 -- Define the image to load
-theme.titlebar_close_button_normal = icon_path .. "titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = icon_path .. "titlebar/close_focus.png"
+theme.titlebar_close_button_normal = icon_path .. "titlebar/close_normal.svg"
+theme.titlebar_close_button_focus  = icon_path .. "titlebar/close_focus.svg"
 
-theme.titlebar_minimize_button_normal = icon_path .. "titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = icon_path .. "titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal = icon_path .. "titlebar/minimize_normal.svg"
+theme.titlebar_minimize_button_focus  = icon_path .. "titlebar/minimize_focus.svg"
 
-theme.titlebar_ontop_button_normal_inactive = icon_path .. "titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = icon_path .. "titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = icon_path .. "titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = icon_path .. "titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive = icon_path .. "titlebar/ontop_normal_inactive.svg"
+theme.titlebar_ontop_button_focus_inactive  = icon_path .. "titlebar/ontop_focus_inactive.svg"
+theme.titlebar_ontop_button_normal_active = icon_path .. "titlebar/ontop_normal_active.svg"
+theme.titlebar_ontop_button_focus_active  = icon_path .. "titlebar/ontop_focus_active.svg"
 
-theme.titlebar_sticky_button_normal_inactive = icon_path .. "titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = icon_path .. "titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = icon_path .. "titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = icon_path .. "titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive = icon_path .. "titlebar/sticky_normal_inactive.svg"
+theme.titlebar_sticky_button_focus_inactive  = icon_path .. "titlebar/sticky_focus_inactive.svg"
+theme.titlebar_sticky_button_normal_active = icon_path .. "titlebar/sticky_normal_active.svg"
+theme.titlebar_sticky_button_focus_active  = icon_path .. "titlebar/sticky_focus_active.svg"
 
-theme.titlebar_floating_button_normal_inactive = icon_path .. "titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = icon_path .. "titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = icon_path .. "titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = icon_path .. "titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive = icon_path .. "titlebar/floating_normal_inactive.svg"
+theme.titlebar_floating_button_focus_inactive  = icon_path .. "titlebar/floating_focus_inactive.svg"
+theme.titlebar_floating_button_normal_active = icon_path .. "titlebar/floating_normal_active.svg"
+theme.titlebar_floating_button_focus_active  = icon_path .. "titlebar/floating_focus_active.svg"
 
-theme.titlebar_maximized_button_normal_inactive = icon_path .. "titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_normal_inactive = icon_path .. "titlebar/maximized_normal_inactive.svg"
 theme.titlebar_maximized_button_focus_inactive  = icon_path .. "titlebar/maximized_focus_inactive.svg"
-theme.titlebar_maximized_button_normal_active = icon_path .. "titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = icon_path .. "titlebar/maximized_focus_active.png"
-
--- Default wallpaper for fallback
-theme.wallpaper = themes_path .. "default/background.png"
+theme.titlebar_maximized_button_normal_active = icon_path .. "titlebar/maximized_normal_active.svg"
+theme.titlebar_maximized_button_focus_active  = icon_path .. "titlebar/maximized_focus_active.svg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = icon_path .. "layouts/fairhw.png"
@@ -190,10 +200,7 @@ theme.layout_cornerne = icon_path .. "layouts/cornernew.png"
 theme.layout_cornersw = icon_path .. "layouts/cornersww.png"
 theme.layout_cornerse = icon_path .. "layouts/cornersew.png"
 
--- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
+theme.distro_icon = icon_path .. "distro/arch.svg"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
