@@ -4,10 +4,12 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
+require("awful.autofocus")
 
 -- Standard awesome libraries
 local gears = require("gears")
 local awful = require("awful")
+local wibox = require("wibox")
 local beautiful = require("beautiful") -- Theme handling library
 local menubar = require("menubar")
 
@@ -24,6 +26,54 @@ require("error-handling")
 -- Theme
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
+
+-- Bling
+local bling = require("bling")
+
+bling.widget.tag_preview.enable {
+	show_client_content = true,
+	x = 10,
+	y = 10,
+	scale = 0.15,
+	honor_padding = true,
+	honor_workarea = true,
+	placement_fn = function(c)
+		awful.placement.bottom_left(c, { margins = { bottom = 40, left = 8 } })
+	end,
+}
+
+bling.widget.task_preview.enable {
+	x = 10,
+	y = 10,
+	placement_fn = function(c)
+		awful.placement.bottom(c, { margins = { bottom = 40 } })
+	end,
+	widget_structure = {
+		{
+			{
+				{
+					id = "icon_role", -- The client icon
+					widget = awful.widget.clienticon,
+				},
+				{
+					id = "name_role", -- The client name
+					widget = wibox.widget.textbox,
+				},
+				layout = wibox.layout.flex.horizontal,
+			},
+			widget = wibox.container.margin,
+			margins = 5,
+		},
+		{
+			id = "image_role", -- The client preview image
+			resize = true,
+			valign = "center",
+			halign = "center",
+			widget = wibox.widget.imagebox,
+		},
+		layout = wibox.layout.fixed.vertical,
+	},
+}
 
 -- Main
 local main = {
@@ -59,6 +109,9 @@ RC.globalkeys = keys.bindtotags(RC.globalkeys)
 
 root.buttons(keys.globalmouse())
 root.keys(RC.globalkeys)
+
+-- Popups
+--
 
 -- Widgets
 local widgets = {
