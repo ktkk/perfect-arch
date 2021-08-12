@@ -147,7 +147,7 @@ local function get_muted()
 end
 
 hovering_volume = false
-function update_volume()
+local function update_volume()
 	local volume = get_volume()
 	local muted = get_muted()
 
@@ -199,7 +199,7 @@ end)
 local launcher = {
 	{
 		{
-			widget = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu }),
+			widget = awful.widget.launcher({ image = beautiful.distro_icon, menu = RC.mainmenu }),
 		},
 		widget = wibox.container.margin,
 		top = 3,
@@ -232,11 +232,103 @@ awful.screen.connect_for_each_screen(function(s)
 		awful.button({ }, 5, function () awful.layout.inc(-1) end))
 	)
 
-	-- Create a taglist widget
-	s.taglist = awful.widget.taglist {
+	-- Taglist
+	local function update_taglist(self, t, index, tags)
+		local has_client = false
+		local has_focus = false
+
+		for _, c in ipairs(client.get()) do
+			if t == c.first_tag then
+				has_client = true
+				break
+			end
+		end
+		for _, tag in ipairs(awful.screen.focused().selected_tags) do
+			if t == tag then
+				has_focus = true
+			end
+		end
+
+		if has_focus then
+			self:get_children_by_id("index_role")[1].markup = "<b> " .. '' .. " </b>"
+			self.fg = beautiful.taglist_focus
+		else
+			self:get_children_by_id("index_role")[1].markup = "<b> " .. '' .. " </b>"
+			self.fg = beautiful.taglist_dots_client
+		end
+		if not has_focus and not has_client then
+			self.fg = beautiful.taglist_dots_no_client
+		end
+	end
+
+	local taglist_widget = awful.widget.taglist {
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
-		buttons = taglist_buttons
+		widget_template = {
+			{
+				{
+					{
+						{
+							{
+								id = "index_role",
+								widget = wibox.widget.textbox,
+							},
+							widget = wibox.container.margin,
+						},
+						shape = gears.shape.circle,
+						widget = wibox.widget.background,
+					},
+					{
+						{
+							id = "icon_role",
+							widget = wibox.widget.imagebox,
+						},
+						widget = wibox.container.margin,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = 1,
+				right = 1,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+			create_callback = function(self, t, index, tags)
+				update_taglist(self, t, index, tags)
+
+				self:connect_signal("mouse::enter", function()
+					if self.bg ~= beautiful.taglist_hover then
+						self.backup = self.bg
+						self.has_backup = true
+					end
+					self.bg = beautiful.taglist_hover
+
+					if #t:clients() > 0 then
+						awesome.emit_signal("bling::tag_preview::update", t)
+						awesome.emit_signal("bling::tag_preview::visibility", s, true)
+					end
+				end)
+				self:connect_signal("mouse::leave", function()
+					if self.has_backup then self.bg = self.backup end
+
+					awesome.emit_signal("bling::tag_preview::visibility", s, false)
+				end)
+			end,
+			update_callback = function(self, t, index, tags)
+				update_taglist(self, t, index, tags)
+			end,
+		},
+		buttons = taglist_buttons,
+	}
+
+	s.taglist = wibox.widget {
+		{
+			widget = taglist_widget,
+		},
+		shape = gears.shape.rounded_rect,
+		shape_clip = true,
+		widget = wibox.container.background,
+		bg = beautiful.bg_focus,
 	}
 
 	-- Create a tasklist widget
@@ -276,6 +368,16 @@ awful.screen.connect_for_each_screen(function(s)
 			},
 			id = "background_role",
 			widget = wibox.container.background,
+			create_callback = function(self, c, index, objects)
+				self:connect_signal("mouse::enter",
+					function()
+						awesome.emit_signal("bling::task_preview::visibility", s, true, c)
+					end)
+				self:connect_signal("mouse::leave",
+					function()
+						awesome.emit_signal("bling::task_preview::visibility", s, false, c)
+					end)
+				end,
 		}
 	}
 
