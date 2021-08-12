@@ -102,6 +102,7 @@ enable_rounding()
 --theme.taglist_bg_focus = "#ff0000"
 theme.hotkeys_bg = colors.xbackground
 theme.hotkeys_fg = colors.xforeground
+theme.hotkeys_border_color = theme.border_focus
 theme.hotkeys_modifiers_fg = colors.xwhite.light
 theme.hotkeys_shape = gears.shape.rounded_rect
 
