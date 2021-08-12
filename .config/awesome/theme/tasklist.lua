@@ -9,7 +9,7 @@ function module.get()
 	local tasklist_buttons = gears.table.join(
 		-- LMB: 		Minimize if focussed, Focus if not focussed
 		awful.button({ }, 1,
-			function (c)
+			function(c)
 				if c == client.focus then
 					c.minimized = true
 				else
@@ -20,6 +20,11 @@ function module.get()
 					)
 				end
 			end),
+		-- MMB: 		Close client
+		awful.button({ }, 2,
+			function(c)
+				c:kill()
+			end),
 		-- RMB: 		Show list of client
 		awful.button({ }, 3,
 			function()
@@ -27,12 +32,12 @@ function module.get()
 			end),
 		-- Scrollup: 		Focus next client
 		awful.button({ }, 4,
-			function ()
+			function()
 				awful.client.focus.byidx(1)
 			end),
 		-- Scrolldown: 		Focus previous client
 		awful.button({ }, 5,
-			function ()
+			function()
 				awful.client.focus.byidx(-1)
 			end)
 	)
