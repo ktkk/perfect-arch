@@ -165,7 +165,7 @@ theme.titlebar_floating_button_normal_active = icon_path .. "titlebar/floating_n
 theme.titlebar_floating_button_focus_active  = icon_path .. "titlebar/floating_focus_active.png"
 
 theme.titlebar_maximized_button_normal_inactive = icon_path .. "titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = icon_path .. "titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = icon_path .. "titlebar/maximized_focus_inactive.svg"
 theme.titlebar_maximized_button_normal_active = icon_path .. "titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = icon_path .. "titlebar/maximized_focus_active.png"
 
