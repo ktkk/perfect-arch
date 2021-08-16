@@ -14,6 +14,8 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "theme/dark/"
 -- Inherit from the default theme
 local theme = {}
 
+local utils = RC.utils
+
 -- Variables
 -- Query xresources
 local colors = {
@@ -58,36 +60,6 @@ theme.border_radius 	= dpi(8)
 theme.border_normal 	= colors.xbackground
 theme.border_focus 	= colors.xblack.light
 theme.border_marked 	= colors.xyellow.dark
-
-local rounded_rect = function(radius)
-	return function(cr, width, height)
-		gears.shape.rounded_rect(cr, width, height, radius)
-	end
-end
-
-function enable_rounding()
-	if theme.border_radius and theme.border_radius > 0 then
-		client.connect_signal("manage", function(c, startup)
-			if not c.fullscreen and not c.maximized then
-				c.shape = rounded_rect(theme.border_radius)
-			end
-		end)
-
-		local function no_round_corners(c)
-			if c.fullscreen or c.maximized then
-				c.shape = gears.shape.rectangle
-			else
-				c.shape = rounded_rect(theme.border_radius)
-			end
-		end
-
-		client.connect_signal("property:fullscreen", no_round_corners)
-		client.connect_signal("property:maximized", no_round_corners)
-
-	end
-end
-
-enable_rounding()
 
 -- There are other variable sets
 -- overriding the default one when

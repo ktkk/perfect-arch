@@ -12,9 +12,12 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful") -- Theme handling library
 
--- global namespace
 RC = {}
+
+-- Global vars
 RC.vars = require("vars")
+
+-- Util functions
 RC.utils = require("utils")
 
 -- Autostart
@@ -25,6 +28,7 @@ require("error-handling")
 
 -- Theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
+RC.utils.enable_rounding() -- Enable rounded corners
 
 -- Bling
 local bling = require("bling")
