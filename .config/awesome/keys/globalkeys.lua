@@ -9,6 +9,9 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local keys = RC.vars.keys
 local apps = RC.vars.apps
 
+-- Utils
+local utils = RC.utils
+
 local module = {}
 
 function module.get()
@@ -38,19 +41,19 @@ function module.get()
 		-- Clients
 		-- Super - J:		Cycle clients left
 		awful.key({ keys.modkey, }, "j",
-				function ()
+				function()
 					awful.client.focus.byidx( 1)
 				end,
 			{description = "Focus next by index", group = "client"}),
 		-- Super - K:		Cycle clients right
 		awful.key({ keys.modkey, }, "k",
-				function ()
+				function()
 					awful.client.focus.byidx(-1)
 				end,
 			{description = "Focus previous by index", group = "client"}),
 		-- Super - Shift - Tab:	Cycle 2 most recent clients
 		awful.key({ keys.modkey, keys.shift }, keys.tab,
-				function ()
+				function()
 					awful.client.focus.history.previous()
 					if client.focus then
 						client.focus:raise()
@@ -61,7 +64,7 @@ function module.get()
 		awful.key({ keys.modkey, }, "u", awful.client.urgent.jumpto, {description = "Jump to urgent client", group = "client"}),
 		-- Super - Ctrl - N:	Restore minimized client
 		awful.key({ keys.modkey, keys.ctrl }, "n",
-				function ()
+				function()
 					local c = awful.client.restore()
 					-- Focus restored client
 					if c then
@@ -76,7 +79,7 @@ function module.get()
 		-- Menu
 		-- Super - W:		Show main menu
 		awful.key({ keys.modkey, }, "w",
-				function ()
+				function()
 					RC.mainmenu:show()
 				end,
 			{description = "Show main menu", group = "awesome"}),
@@ -85,73 +88,73 @@ function module.get()
 		-- Layout manipulation
 		-- Super - Shift - J:	Swap clients left
 		awful.key({ keys.modkey, keys.shift }, "j",
-				function ()
+				function()
 					awful.client.swap.byidx(1)
 				end,
 			{description = "Swap with next client by index", group = "client"}),
 		-- Super - Shift - K:	Swap clients right
 		awful.key({ keys.modkey, keys.shift }, "k",
-				function ()
+				function()
 					awful.client.swap.byidx(-1)
 				end,
 			{description = "Swap with previous client by index", group = "client"}),
 		-- Super - Ctrl - J:	Focus screen left
 		awful.key({ keys.modkey, keys.ctrl }, "j",
-				function ()
+				function()
 					awful.screen.focus_relative(1)
 				end,
 			{description = "Focus the next screen", group = "screen"}),
 		-- Super - Ctrl - K:	Focus screen right
 		awful.key({ keys.modkey, keys.ctrl }, "k",
-				function ()
+				function()
 					awful.screen.focus_relative(-1)
 				end,
 			{description = "focus the previous screen", group = "screen"}),
 		-- Super - L:		Increase master client width
 		awful.key({ keys.modkey, }, "l",
-				function ()
+				function()
 					awful.tag.incmwfact(0.05)
 				end,
 			{description = "Increase master width factor", group = "layout"}),
 		-- Super - H:		Decrease master client width
 		awful.key({ keys.modkey, }, "h",
-				function ()
+				function()
 					awful.tag.incmwfact(-0.05)
 				end,
 			{description = "Decrease master width factor", group = "layout"}),
 		-- Super - Shift - H:	Increase nr of master clients
 		awful.key({ keys.modkey, keys.shift }, "h",
-				function ()
+				function()
 					awful.tag.incnmaster(1, nil, true)
 				end,
 			{description = "Increase the number of master clients", group = "layout"}),
 		-- Super - Shift - L:	Decrease nr of master clients
 		awful.key({ keys.modkey, keys.shift }, "l",
-				function ()
+				function()
 					awful.tag.incnmaster(-1, nil, true)
 				end,
 			{description = "Decrease the number of master clients", group = "layout"}),
 		-- Super - Ctrl - H:	Increase nr of columns
 		awful.key({ keys.modkey, keys.ctrl }, "h",
-				function ()
+				function()
 					awful.tag.incncol(1, nil, true)
 				end,
 			{description = "Increase the number of columns", group = "layout"}),
 		-- Super - Ctrl - L:	Decrease nr of columns
 		awful.key({ keys.modkey, keys.ctrl }, "l",
-				function ()
+				function()
 					awful.tag.incncol(-1, nil, true)
 				end,
 			{description = "Decrease the number of columns", group = "layout"}),
 		-- Super - Space:	Switch to next layout
 		awful.key({ keys.modkey, }, keys.space,
-				function ()
+				function()
 					awful.layout.inc( 1)
 				end,
 			{description = "Select next", group = "layout"}),
 		-- Super - Shift - Space:	Switch to previous layout
 		awful.key({ keys.modkey, keys.shift }, keys.space,
-				function ()
+				function()
 					awful.layout.inc(-1)
 				end,
 			{description = "Select previous", group = "layout"}),
@@ -160,7 +163,7 @@ function module.get()
 		-- Program launch keybind
 		-- Super - Enter:	Spawn terminal
 		awful.key({ keys.modkey, }, keys.enter,
-				function ()
+				function()
 					awful.spawn(apps.terminal)
 				end,
 			{description = "Open a terminal", group = "launcher"}),
@@ -169,13 +172,13 @@ function module.get()
 		-- Run prompt
 		-- Super - R:		Run prompt
 		awful.key({ keys.modkey }, "r",
-				function ()
+				function()
 					awful.screen.focused().mypromptbox:run()
 				end,
 			{description = "Run prompt", group = "launcher"}),
 		-- Super - X:		Lua run prompt
 		awful.key({ keys.modkey }, "x",
-				function ()
+				function()
 					  awful.prompt.run {
 						prompt = "Run Lua code: ",
 						textbox = awful.screen.focused().mypromptbox.widget,
@@ -197,20 +200,17 @@ function module.get()
 		-- Volume down
 		awful.key({}, "XF86AudioRaiseVolume",
 				function()
-					awful.spawn.easy_async_with_shell("pactl set-sink-volume @DEFAULT_SINK@ +5%",
-						function() awesome.emit_signal("volume_refresh") end)
+					utils.increase_volume(5)
 				end,
 			{description = "Raise volume by 5%", group = "audio"}),
 		awful.key({}, "XF86AudioLowerVolume",
 				function()
-					awful.spawn.easy_async_with_shell("pactl set-sink-volume @DEFAULT_SINK@ -5%",
-						function() awesome.emit_signal("volume_refresh") end)
+					utils.decrease_volume(5)
 				end,
 			{description = "Lower volume by 5%", group = "audio"}),
-		awful.key({}, "XF86AudioLowerVolume",
+		awful.key({}, "XF86AudioMute",
 				function()
-					awful.spawn.easy_async_with_shell("pactl set-sink-mute @DEFAULT_SINK@ toggle",
-						function() awesome.emit_signal("volume_refresh") end)
+					utils.toggle_muted()
 				end,
 			{description = "Mute audio", group = "audio"})
 	)

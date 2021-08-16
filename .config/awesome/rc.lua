@@ -11,11 +11,11 @@ local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful") -- Theme handling library
-local menubar = require("menubar")
 
 -- global namespace
 RC = {}
 RC.vars = require("vars")
+RC.utils = require("utils")
 
 -- Autostart
 -- Handled by .config/x11/xprofile
@@ -24,7 +24,6 @@ RC.vars = require("vars")
 require("error-handling")
 
 -- Theme
--- beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. RC.vars.theme .. "/theme.lua")
 
 -- Bling

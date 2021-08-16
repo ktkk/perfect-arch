@@ -10,6 +10,8 @@ local theme = {
 	tasklist 	= require("theme.tasklist")
 }
 
+local utils = RC.utils
+
 local taglist_buttons = theme.taglist()
 local tasklist_buttons = theme.tasklist()
 
@@ -131,25 +133,10 @@ local volumebar = wibox.widget{
 	bottom = 1,
 }
 
-local function get_volume()
-	local query = io.popen("amixer sget Master"):read("*a")
-	return tonumber(query:match("(%d?%d?%d)%%"))
-end
-
-local function get_muted()
-	local query = io.popen("amixer sget Master"):read("*a")
-	local status = query:match("%[(o[^%]]*)%]")
-
-	if status:find("on", 1, true) then
-		return false
-	end
-	return true
-end
-
 hovering_volume = false
 local function update_volume()
-	local volume = get_volume()
-	local muted = get_muted()
+	local volume = utils.get_volume()
+	local muted = utils.get_muted()
 
 	local textbox = volumebar:get_children_by_id("text_box")[1]
 	if hovering_volume then
