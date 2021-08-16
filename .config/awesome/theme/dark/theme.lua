@@ -12,7 +12,6 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "theme/dark/"
 -- TODO: write a function that sets the svg colors according to the theme colors
 
 -- Inherit from the default theme
-local themes_path = gears.filesystem.get_themes_dir()
 local theme = {}
 
 -- Variables
@@ -31,8 +30,10 @@ local colors = {
 }
 
 -- Font
-theme.font_name 	= "Fira Code"
-theme.font_size 	= "11"
+local query = io.popen("xrdb -query"):read("*a")
+
+theme.font_name 	= query:match("%*font:%s*xft:(%w*%s*%w*)")
+theme.font_size 	= query:match("*font:%s*xft:%w*%s*%w*:size=(%d*)")
 theme.font 		= theme.font_name .. theme.font_size
 
 -- BG colors
