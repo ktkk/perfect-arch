@@ -6,7 +6,7 @@ local M = {
 
 	-- Application
 	apps = {
-		terminal 	= "urxvt",
+		terminal 	= os.getenv("TERMINAL") or "xterm",
 		editor 		= os.getenv("EDITOR") or "vim",
 		browser 	= "firefox",
 		filemanager 	= "thunar",
