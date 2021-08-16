@@ -5,7 +5,7 @@ function get_color(name)
 	return color
 end
 
-local xcolors = {
+local colors = {
 	xbackground = get_color("background"),
 	xforeground = get_color("foreground"),
 	xcursorcolor = get_color("cursorColor"),
@@ -19,44 +19,44 @@ local xcolors = {
 	xwhite = { light = get_color("color7"), dark = get_color("color15") },
 }
 
-local colors = {
-	foreground = xcolors.xforeground,
-	background = xcolors.xbackground,
+local theme = {
+	foreground = colors.xforeground,
+	background = colors.xbackground,
 
-	cursor_bg = xcolors.xcursorcolor,
-	cursor_fg = xcolors.xbackground,
-	cursor_border = xcolors.xcursorcolor,
+	cursor_bg = colors.xcursorcolor,
+	cursor_fg = colors.xbackground,
+	cursor_border = colors.xcursorcolor,
 
-	selection_fg = xcolors.xbackground,
-	selection_bg = xcolors.xforeground,
+	selection_fg = colors.xbackground,
+	selection_bg = colors.xforeground,
 
 	ansi = {
-		xcolors.xblack.light,
-		xcolors.xred.light,
-		xcolors.xgreen.light,
-		xcolors.xyellow.light,
-		xcolors.xblue.light,
-		xcolors.xmagenta.light,
-		xcolors.xcyan.light,
-		xcolors.xwhite.light,
+		colors.xblack.light,
+		colors.xred.light,
+		colors.xgreen.light,
+		colors.xyellow.light,
+		colors.xblue.light,
+		colors.xmagenta.light,
+		colors.xcyan.light,
+		colors.xwhite.light,
 	},
 	brights = {
-		xcolors.xblack.dark,
-		xcolors.xred.dark,
-		xcolors.xgreen.dark,
-		xcolors.xyellow.dark,
-		xcolors.xblue.dark,
-		xcolors.xmagenta.dark,
-		xcolors.xcyan.dark,
-		xcolors.xwhite.dark,
+		colors.xblack.dark,
+		colors.xred.dark,
+		colors.xgreen.dark,
+		colors.xyellow.dark,
+		colors.xblue.dark,
+		colors.xmagenta.dark,
+		colors.xcyan.dark,
+		colors.xwhite.dark,
 	},
 
 	tab_bar = {
-		background = xcolors.xbackground,
-		active_tab = { bg_color = xcolors.xbackground, fg_color = xcolors.xforeground },
-		inactive_tab = { bg_color = xcolors.xblack.light, fg_color = xcolors.xwhite.dark },
-		inactive_tab_hover = { bg_color = xcolors.xblack.dark, fg_color = xcolors.xwhite.light }
+		background = colors.xbackground,
+		active_tab = { bg_color = colors.xbackground, fg_color = colors.xforeground },
+		inactive_tab = { bg_color = colors.xblack.light, fg_color = colors.xwhite.dark },
+		inactive_tab_hover = { bg_color = colors.xblack.dark, fg_color = colors.xwhite.light }
 	}
 }
 
-return colors
+return theme

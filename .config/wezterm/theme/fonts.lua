@@ -6,7 +6,9 @@ fonts = {
 	italic_font = query:match("%*italicFont:%s*xft:(%w*%s*%w*)"),
 	bold_italic_font = query:match("%*boldItalicFont:%s*xft:(%w*%s*%w*)"),
 
-	size = query:match("*font:%s*xft:%w:size=($d*)"),
+	size = tonumber(query:match("*font:%s*xft:%w*%s*%w*:size=(%d*)")),
 }
+
+print(fonts.size)
 
 return fonts
