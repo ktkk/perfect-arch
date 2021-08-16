@@ -8,6 +8,9 @@ set splitbelow
 
 set smartindent
 set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 set number relativenumber
 set noshowmode
@@ -26,7 +29,7 @@ set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo
 let g:netrw_dirhistmax = 0
 
 " Enable code snippet syntax highlighting in Markdown files
-let g:markdown_fenced_languages = ['html', 'css', 'python', 'vim', 'bash', 'sh', 'c', 'cpp', 'make']
+let g:markdown_fenced_languages = ['html', 'css', 'python', 'vim', 'bash', 'sh', 'lua', 'c', 'cpp', 'make']
 
 " Plugin Manager
 " Autoinstall Plug if it's not present
