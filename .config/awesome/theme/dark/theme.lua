@@ -55,10 +55,10 @@ theme.fg_minimize 	= colors.xforeground
 theme.useless_gap 	= dpi(5)
 
 -- Borders
-theme.border_width 	= dpi(3)
+theme.border_width		= dpi(3)
 theme.border_radius 	= dpi(8)
 theme.border_normal 	= colors.xbackground
-theme.border_focus 	= colors.xblack.light
+theme.border_focus		= colors.xblack.light
 theme.border_marked 	= colors.xyellow.dark
 
 -- There are other variable sets
