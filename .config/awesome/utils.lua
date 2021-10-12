@@ -67,4 +67,14 @@ function utils.enable_rounding()
 	end
 end
 
+-- Selection screenshot
+function utils.selection_screenshot()
+	awful.util.spawn("scrot -se 'xclip -selection c -t image/png < $f && mv $f ~/Pictures/Screenshots/'", false)
+end
+
+-- Fullscreen screenshot
+function utils.fullscreen_screenshot()
+	awful.util.spawn("scrot -e 'xclip -selection c -t image/png < $f && mv $f ~/Pictures/Screenshots/'", false)
+end
+
 return utils
