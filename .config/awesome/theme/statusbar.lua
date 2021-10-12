@@ -328,7 +328,8 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 		layout = {
 			spacing = 6,
-			layout = wibox.layout.fixed.horizontal,
+			max_widget_size = 300,
+			layout = wibox.layout.flex.horizontal,
 		},
 		widget_template = {
 			{
