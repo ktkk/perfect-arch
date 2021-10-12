@@ -42,7 +42,8 @@ function module.get()
 	local menu_items = {
 		{ "Awesome", menu.awesome, beautiful.awesome_icon },
 		{ "Favorites", menu.favorites },
-		{ "Shut down", 'shutdown now' }
+		{ "Shut down", "poweroff" },
+		{ "Restart", "reboot" },
 	}
 
 	return menu_items
