@@ -1,3 +1,6 @@
+-- Colors
+colors = require("xresources")
+
 -- Options
 require("options")
 
