@@ -2,7 +2,6 @@ local execute = vim.api.nvim_command
 local fn = vim.fn
 
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local plugin_config_path = "plugins/"
 
 if fn.empty(fn.glob(install_path)) > 0 then -- If packer is not already present
 	execute("!git clone https://github.com/wbthomason/packer.nvim" .. ' ' .. install_path)
@@ -21,13 +20,13 @@ return require("packer").startup(function(use)
 	-- Buffer bar
 	use {
 		"akinsho/nvim-bufferline.lua",
-		config = function() require(plugin_config_path .. "bufferline") end,
+		config = function() require("plugins/bufferline") end,
 	}
 
 	-- Status line
 	use {
 		"glepnir/galaxyline.nvim",
-		config = function() require(plugin_config_path .. "galaxyline") end,
+		config = function() require("plugins/galaxyline") end,
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	}
 
@@ -38,13 +37,13 @@ return require("packer").startup(function(use)
 
 	use {
 		"kyazdani42/nvim-web-devicons",
-		config = function() require(plugin_config_path .. "icons") end,
+		config = function() require("plugins/icons") end,
 	}
 
 	use {
 		"nvim-treesitter/nvim-treesitter",
 		event = "BufRead",
-		config = function() require(plugin_config_path .. "treesitter") end,
+		config = function() require("plugins/treesitter") end,
 	}
 
 	-- Nvim tree sidebar
@@ -56,7 +55,7 @@ return require("packer").startup(function(use)
 	-- Completion
 	use {
 		"hrsh7th/nvim-cmp",
-		config = function() require(plugin_config_path .. "cmp") end,
+		config = function() require("plugins/cmp") end,
 	}
 
 	use {
@@ -81,29 +80,28 @@ return require("packer").startup(function(use)
 
 	-- LSP stuff
 	use {
-		"kabouzeid/nvim-lspinstall",
+		"williamboman/nvim-lsp-installer",
 		event = "BufEnter",
 	}
 
 	use {
 		"neovim/nvim-lspconfig",
-		after = "nvim-lspinstall"
+		after = "nvim-lsp-installer",
+		config = function() require("plugins/lsp") end,
 	}
 
 	use {
 		"ray-x/lsp_signature.nvim",
 	}
 
-	
-
 	-- Convenience stuff
 	use {
 		"windwp/nvim-autopairs",
-		config = function() require(plugin_config_path .. "autopairs") end,
+		config = function() require("plugins/autopairs") end,
 	}
 
 	use {
 		"mhartington/formatter.nvim",
-		config = function() require(plugin_config_path .. "formatter") end,
+		config = function() require("plugins/formatter") end,
 	}
 end)
