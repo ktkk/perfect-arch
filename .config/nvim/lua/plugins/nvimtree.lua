@@ -1,5 +1,6 @@
-local present, tree_c = pcall(require, "nvim-tree.config")
-if not present then
+local present1, tree = pcall(require, "nvim-tree")
+local present2, tree_c = pcall(require, "nvim-tree.config")
+if not (present1 or present2) then
 	return
 end
 
@@ -9,26 +10,13 @@ local function tree_opt(key, value)
 	vim.g["nvim_tree_" .. key] = value
 end
 
-tree_opt("side", "left")
-tree_opt("width", 25)
-tree_opt("ignore", { ".git", ".cache" })
 tree_opt("gitignore", 1)
-tree_opt("auto_ignore_ft", { "dashboard" })
-tree_opt("auto_open", 1)
-tree_opt("auto_close", 1)
 tree_opt("quit_on_open", 0)
-tree_opt("follow", 1)
 tree_opt("indent_markers", 1)
-tree_opt("hide_dotfiles", 1)
 tree_opt("git_hl", 1)
 tree_opt("highlight_opened_files", 0)
 tree_opt("root_folder_modifier", table.concat{ ":t:gs?$/..", string.rep(" ", 1000), "?:gs?^??" })
-tree_opt("tab_open", 0)
-tree_opt("allow_resize", 1)
 tree_opt("add_trailing", 0)
-tree_opt("disable_netrw", 1)
-tree_opt("hijack_netrw", 0)
-tree_opt("update_cwd", 1)
 
 tree_opt("show_icons", {
 	git = 1,
@@ -58,7 +46,7 @@ tree_opt("icons", {
 	}
 })
 
-tree_opt("bindings", {
+local tree_mappings = {
 	{ key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
 	{ key = {"<2-RightMouse>", "<C-]>"}, cb = tree_cb("cd") },
 	{ key = "<C-v>", cb = tree_cb("vsplit") },
@@ -90,7 +78,34 @@ tree_opt("bindings", {
 	{ key = "-", cb = tree_cb("dir_up") },
 	{ key = "q", cb = tree_cb("close") },
 	{ key = "g?", cb = tree_cb("toggle_help") }
-})
+}
+
+tree.setup {
+	disable_netrw      = true,
+	hijack_netrw       = false,
+	open_on_setup      = true,
+	open_on_tab        = false,
+	auto_close         = true,
+	ignore_ft_on_setup = { "dashboard" },
+	update_cwd         = true,
+	update_to_bif_dir = {
+		enable     = true,
+		auto_open  = true,
+	},
+	filters = {
+		dotfiles   = false,
+		custom     = { ".git", ".cache" }
+	},
+	view = {
+		width       = 25,
+		side        = "left",
+		auto_resize = false,
+		mappings = {
+			custom_only = false,
+			list = tree_mappings,
+		}
+	},
+}
 
 -- Hide statusline in nvimtree buffer
 vim.cmd("au BufEnter,BufWinEnter,WinEnter,CmdwinEnter * if bufname('%') == 'NvimTree' | set laststatus=0 | else | set laststatus=2 | endif")

@@ -1,11 +1,11 @@
 -- Colors
 colors = require("xresources")
 
--- Options
-require("options")
-
 -- Plugins
 require("plugins")
+
+-- Options
+require("options")
 
 -- Keymaps
 require("keymaps")

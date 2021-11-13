@@ -47,10 +47,10 @@ return require("packer").startup(function(use)
 	}
 
 	-- Nvim tree sidebar
-	--use {
-	--	"kyazdani42/nvim-tree.lua",
-	--	config = function() require("plugins/nvimtree") end,
-	--}
+	use {
+		"kyazdani42/nvim-tree.lua",
+		config = function() require("plugins/nvimtree") end,
+	}
 
 	-- Completion
 	use {
@@ -103,5 +103,10 @@ return require("packer").startup(function(use)
 	use {
 		"mhartington/formatter.nvim",
 		config = function() require("plugins/formatter") end,
+	}
+
+	use {
+		"norcalli/nvim-colorizer.lua",
+		config = function() require("plugins/colorizer") end,
 	}
 end)

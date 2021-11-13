@@ -6,10 +6,14 @@ local function opt(scope, key, value)
 	if scope ~= 'o' then scopes['o'][key] = value end -- also turn on value for other scopes
 end
 
+local set = vim.opt
+
 -- Commands
 cmd("syntax on")
 cmd("filetype plugin indent on")
---cmd("colorscheme xresources")
+
+cmd("highlight ExtraWhiteSpace ctermbg=red guibg=red")
+cmd("match ExtraWhiteSpace /\\s\\+$/")
 
 -- Options
 opt('o', "hidden", true)
@@ -20,12 +24,18 @@ opt('o', "ruler", true)
 opt('o', "mouse", 'a')
 opt('o', "updatetime", 500)
 opt('o', "termguicolors", true)
-opt('o', "listchars", "tab:→\\ ,space:·,trail:+,nbsp:␣,precedes:⇥,extends:⇤")
 
 opt('b', "smartindent", true)
 opt('b', "autoindent", true)
+opt('b', "tabstop", 4)
+opt('b', "softtabstop", 4)
+opt('b', "shiftwidth", 4)
 
 opt('w', "number", true)
 opt('w', "relativenumber", true)
 opt('w', "wrap", true)
 opt('w', "signcolumn", "number")
+
+-- Global options
+set.list = true
+set.listchars = { tab = "→ ", space = "·", trail = "+", nbsp = "␣", precedes = "⇥", extends = "⇤" }
