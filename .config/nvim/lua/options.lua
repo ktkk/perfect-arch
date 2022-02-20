@@ -33,8 +33,9 @@ opt('b', "shiftwidth", 4)
 
 opt('w', "number", true)
 opt('w', "relativenumber", true)
+opt('w', "numberwidth", 3)
 opt('w', "wrap", true)
-opt('w', "signcolumn", "number")
+opt('w', "signcolumn", "yes:1")
 
 -- Global options
 set.list = true

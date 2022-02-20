@@ -25,10 +25,14 @@ return require("packer").startup(function(use)
 
 	-- Status line
 	use {
-		"glepnir/galaxyline.nvim",
-		config = function() require("plugins/galaxyline") end,
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		"feline-nvim/feline.nvim",
+		config = function() require("plugins/feline") end,
 	}
+	-- use {
+	-- 	"glepnir/galaxyline.nvim",
+	-- 	config = function() require("plugins/galaxyline") end,
+	-- 	requires = { "kyazdani42/nvim-web-devicons", opt = true },
+	-- }
 
 	-- Theme
 	use {
@@ -92,6 +96,19 @@ return require("packer").startup(function(use)
 
 	use {
 		"ray-x/lsp_signature.nvim",
+	}
+
+	use {
+		"L3MON4D3/LuaSnip",
+	}
+
+	-- Git integration
+	use {
+		"lewis6991/gitsigns.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function() require("plugins/gitsigns") end,
 	}
 
 	-- Convenience stuff

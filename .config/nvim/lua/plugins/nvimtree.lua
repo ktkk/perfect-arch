@@ -10,7 +10,6 @@ local function tree_opt(key, value)
 	vim.g["nvim_tree_" .. key] = value
 end
 
-tree_opt("gitignore", 1)
 tree_opt("quit_on_open", 0)
 tree_opt("indent_markers", 1)
 tree_opt("git_hl", 1)
@@ -105,6 +104,9 @@ tree.setup {
 			list = tree_mappings,
 		}
 	},
+	git = {
+		ignore = true,
+	}
 }
 
 -- Hide statusline in nvimtree buffer
