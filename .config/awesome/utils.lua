@@ -1,5 +1,6 @@
 local awful = require("awful")
 local gears = require("gears")
+local naughty = require('naughty')
 local beautiful = require("beautiful")
 
 local utils = {}
@@ -67,14 +68,58 @@ function utils.enable_rounding()
 	end
 end
 
+function send_screenshot_notif(file_loc, message)
+	local open_image = naughty.action {
+		name = "Open",
+	   	icon_only = false,
+	}
+	
+	local delete_image = naughty.action {
+		name = "Delete",
+	   	icon_only = false,
+	}
+	
+	-- Execute the callback when 'Open' is pressed
+	open_image:connect_signal("invoked", function()
+		awful.spawn("xdg-open " .. file_loc, false)
+	end)
+	
+	-- Execute the callback when 'Delete' is pressed
+	delete_image:connect_signal("invoked", function()
+		awful.spawn("rm -f " .. file_loc, false)
+	end)
+	
+	-- Show notification
+	naughty.notification ({
+		app_name = "Screenshot Tool",
+		icon = file_loc,
+		timeout = 10,
+		title = "<b>Screenshot!</b>",
+		message = message,
+		actions = { open_image, delete_image }
+	})	
+end
+
+local screenshot_dir = "~/Pictures/Screenshots/"
+
 -- Selection screenshot
 function utils.selection_screenshot()
-	awful.util.spawn("scrot -se 'xclip -selection c -t image/png < $f && mv $f ~/Pictures/Screenshots/'", false)
+	awful.util.spawn("scrot -se 'xclip -selection c -t image/png < $f && mv $f " .. screenshot_dir .. "'", false)
+	
+	local screenshot = io.popen("ls -1 -t " .. screenshot_dir .. " | head -1")
+	local message = "Selection screenshot saved and copied to clipboard!"
+	
+	send_screenshot_notif(screenshot, message)
 end
 
 -- Fullscreen screenshot
 function utils.fullscreen_screenshot()
-	awful.util.spawn("scrot -e 'xclip -selection c -t image/png < $f && mv $f ~/Pictures/Screenshots/'", false)
+	awful.util.spawn("scrot -e 'xclip -selection c -t image/png < $f && mv $f " .. screenshot_dir .. "'", false)
+	
+	local screenshot = io.popen("ls -1 -t " .. screenshot_dir .. " | head -1")
+	local message = "Fullscreen screenshot saved and copied to clipboard!"
+	
+	send_screenshot_notif(screenshot, message)
 end
 
 return utils
